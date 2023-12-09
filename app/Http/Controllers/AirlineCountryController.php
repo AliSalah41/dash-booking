@@ -82,9 +82,9 @@ class AirlineCountryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(AirlineCountry $airlineCountry)
     {
-        $airlineCountry = AirlineCountry::find($id);
+
         $airlineCountry->delete();
 
         return redirect()->route('airlineCountry.index')->with('success', ' deleted successfully');

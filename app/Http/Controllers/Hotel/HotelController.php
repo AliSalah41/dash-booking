@@ -37,7 +37,6 @@ class HotelController extends Controller
     public function store(Request $request, $eventId)
     {
 
-
         //return $request->all();
         $request->validate([
             'single_room' => 'required|numeric',
@@ -87,16 +86,26 @@ class HotelController extends Controller
                 'price' => $request->input('triple_room'),
             ]
         );
+        Hotel::updateOrCreate(
+            [
+                'event_id' => $eventId,
+                'room_type' => 'Quadruple_room',
+            ],
+            [
+                'price' => $request->input('Quadruple_room'),
+            ]
+        );
 
 
     // Check if the 'ho' parameter is present in the URL
     if ($request->has('ho')) {
-    // Redirect to the 'show' route
-    return redirect()->route('btn.show',$eventId)->with('success', 'Hotel updated successfully');
-}else{
-    $event_id = $eventId;
-    return redirect()->route('transportations.create', ['event' => $event_id])->with('success','Hotel created successfully');
-}
+        // Redirect to the 'show' route
+        return redirect()->route('btn.show',$eventId)->with('success', 'Hotel updated successfully');
+    }
+    else{
+        $event_id = $eventId;
+        return redirect()->route('transportations.create', ['event' => $event_id])->with('success','Hotel created successfully');
+    }
 
     }
 

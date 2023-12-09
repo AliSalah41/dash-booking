@@ -1,6 +1,6 @@
 <?php
 
-namespace App\services;
+namespace App\Services;
 
 use App\Models\Media;
 
@@ -53,7 +53,7 @@ class MediaService
             if ($existingImage) {
 
                 // Delete the old image file
-                $oldImagePath = public_path('event/images/') . '/' . $existingImage->filename;
+                $oldImagePath = public_path('Tickets') . '/' . $existingImage->filename;
 
                 if (file_exists($oldImagePath)) {
                     unlink($oldImagePath);
@@ -64,7 +64,7 @@ class MediaService
             }
 
             $data = [
-                'filename' => "event/images/" . time() . $image->getClientOriginalName(),
+                'filename' => "Tickets/" . time() . $image->getClientOriginalName(),
                 'filetype' => $image->getClientMimeType(),
                 'type' => 'image',
                 'createBy_type' => get_class($model),
@@ -73,7 +73,7 @@ class MediaService
                 'updateBy_id' => null,
             ];
 
-            $image->move(public_path('event/images/'), $data['filename']);
+            $image->move(public_path('Tickets/'), $data['filename']);
 
             // Update media based on the model type
             if ($modelType === 'Event') {
@@ -93,14 +93,14 @@ class MediaService
 
         if ($existingImage) {
             // Delete the old image file
-            $oldImagePath = public_path('event/images/') . '/' . $existingImage->filename;
+            $oldImagePath = public_path('Tickets') . '/' . $existingImage->filename;
             if (file_exists($oldImagePath)) {
                 unlink($oldImagePath);
             }
 
             // Update the old image record with the new data
             $data = [
-                'filename' => "event/images/" . time() . $image->getClientOriginalName(),
+                'filename' => "Tickets/" . time() . $image->getClientOriginalName(),
                 'filetype' => $image->getClientMimeType(),
             ];
 
@@ -108,7 +108,7 @@ class MediaService
         } else {
             // Create a new media record
             $data = [
-                'filename' => "event/images/" . time() . $image->getClientOriginalName(),
+                'filename' => "Tickets/" . time() . $image->getClientOriginalName(),
                 'filetype' => $image->getClientMimeType(),
                 'type' => 'image',
                 'createBy_type' => get_class($model),

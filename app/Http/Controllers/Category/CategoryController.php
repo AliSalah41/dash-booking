@@ -55,7 +55,7 @@ class CategoryController extends Controller
             // 'es.description' => 'required|string',
 
             'title' => 'required|string',
-            'description' => 'required|string',
+            'description' => 'required|string|max:255',
         ]);
 
         // $category = Category::create($request->all());
@@ -72,6 +72,7 @@ class CategoryController extends Controller
 
         // $category->title = $title;
         // $category->description = $description;
+        $category->appKey = session('appKey');
 
         $category->title = $request->title;
         $category->description = $request->description;

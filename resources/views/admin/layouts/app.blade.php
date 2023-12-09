@@ -40,6 +40,7 @@ use Illuminate\Support\Facades\Form;
         <link rel="stylesheet" href="assets/css/semi-dark.css" />
         <link rel="stylesheet" href="assets/css/header-colors.css" />
         <link rel="stylesheet" href="{{ asset('assets/css/all.min.css') }}" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.css">
     @else
 {{--            {{dd(app()->getLocale())}}--}}
 
@@ -80,6 +81,8 @@ use Illuminate\Support\Facades\Form;
             <link rel="stylesheet" href="rtl/assets/css/semi-dark.css" />
             <link rel="stylesheet" href="rtl/assets/css/header-colors.css" />
             <link rel="stylesheet"href="{{ asset('assets/css/all.min.css') }}" />
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.css">
+
 @endif
 <title>@yield('subtitle')</title>
 
@@ -148,7 +151,7 @@ use Illuminate\Support\Facades\Form;
     <script src="assets/plugins/notifications/js/notifications.min.js"></script>
     <script src="assets/js/index.js"></script>
     <!--app JS-->
-    <script src="http://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.all.min.js"></script>
 
 
     @yield('scripts')
@@ -157,8 +160,15 @@ use Illuminate\Support\Facades\Form;
 
     {{-- ///////////////////////////////////  delete button //////////////////////////////////// --}}
     <script>
-        function confirmDelete(event) {
+        $(document).on("submit", "form .delete", function (e) {
+            event.preventDefault();
+
+        });
+
+
+        function confirmDelete(event,$id) {
           event.preventDefault(); // Cancel the default link behavior
+          form = event.target.closest('form');
 
           Swal.fire({
             title: 'Are you sure?',
@@ -170,8 +180,8 @@ use Illuminate\Support\Facades\Form;
             confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
             if (result.isConfirmed) {
-
-                document.getElementById('myform').submit();
+                form.submit();
+                // document.getElementById('myform').submit();
 
             }
           });

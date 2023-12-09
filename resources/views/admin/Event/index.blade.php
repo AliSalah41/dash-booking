@@ -45,7 +45,7 @@
                             <th>category</th>
                             <th>country</th>
                             <th>city</th>
-                            <th>status</th>
+                            <th>Go live</th>
                             <th>Action</th>
                         </tr>
                     </thead>

@@ -33,7 +33,7 @@ class EntertainmentController extends Controller
             //    return $eventId;
         $request->validate([
             'title' => 'required',
-            'description' => 'required',
+            'description' => 'required|max:255',
             'address' => 'required',
             'start_dateTime' => 'required',
             'end_dateTime' => 'required',

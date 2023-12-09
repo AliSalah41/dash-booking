@@ -45,11 +45,12 @@
                     <div id="hotelFormContainer">
 
                     <form class="row g-3" action="{{ route('hotels.store', $event->id) }}" method="POST">
+                    {{-- <form class="row g-3" action="{{ route('hotels.store', $hotels->id) }}" method="POST"> --}}
                         @csrf
 
 
 
-                        @foreach (['single', 'double', 'triple'] as $roomType)
+                        @foreach (['single', 'double', 'triple',' Quadruple'] as $roomType)
                             @php
                                 $old = $hotels->where('room_type', $roomType . '_room')->first();
                             @endphp
@@ -59,9 +60,8 @@
                                     <label for="{{ $roomType }}_label" name="{{ $roomType }}_label"
                                         class="form-control border-start-0">{{ $roomType }} room</label>
                                 </div>
-
                                 <div class="col-6">
-                                    {{--  <label for="{{ $roomType }}_price" class="form-label mt-4">price</label>  --}}
+                                    {{--  <label for="{{ $roomType }}_price" class="form-label mt-4">price</label>--}}
                                     <input type="text" class="form-control border-start-0" id="{{ $roomType }}_price"
                                         name="{{ $roomType }}_room" placeholder="enter price"
                                         value="{{ $old ? $old->price : '' }}" />
