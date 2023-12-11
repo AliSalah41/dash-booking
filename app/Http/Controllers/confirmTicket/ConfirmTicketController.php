@@ -57,7 +57,7 @@ class ConfirmTicketController extends Controller
     {
         //  $confirm_ticket = Confirm_Ticket::with([ 'event', 'transportation', 'entertainment', 'hotel', 'airlinecountry','tickets'])->where('id',$id)->first();
         //  $hotel_tickets =Hotel_Ticket::with([ 'tickets', 'hotels'])->where('id',$id)->first();
-        $ticket = Ticket::with([ 'event', 'transportation', 'entertainment', 'hotel', 'airlinecountry','user'])->first();
+        $ticket = Ticket::with([ 'event', 'transportation', 'entertainment', 'hotel', 'airlinecountry','user'])->where('id',$id)->first();
         // $hotel_ticket =Hotel_Ticket::with(['hotels'])->where('ticket_id',$id)->first();
         // return $ticket;
         $hotel_ticket =Hotel_Ticket::with(['hotels'])->where('ticket_id',$id)->first();
