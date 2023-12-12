@@ -12,10 +12,10 @@ class UserController extends Controller
 {
     public function __construct()
     {
-       $this->middleware('permission:user-list' . session('appKey'), ['only' => ['index']]);
-       $this->middleware('permission:user-create' . session('appKey'), ['only' => ['create', 'store']]);
-       $this->middleware('permission:user-edit' . session('appKey'), ['only' => ['edit', 'update']]);
-       $this->middleware('permission:user-delete' . session('appKey'), ['only' => ['destroy']]);
+        $this->middleware('permission:user-list' . session('appKey'), ['only' => ['index']]);
+        $this->middleware('permission:user-create' . session('appKey'), ['only' => ['create', 'store']]);
+        $this->middleware('permission:user-edit' . session('appKey'), ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user-delete' . session('appKey'), ['only' => ['destroy']]);
     }
 
     /**
@@ -51,7 +51,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'nickName' => 'required|string|max:255',
-            'email' => 'required|email|'.Rule::unique('users', 'email'),
+            'email' => 'required|email|' . Rule::unique('users', 'email'),
             'phone' => 'required|numeric',
             'password' => 'required|string|min:6|max:255',
             'birth' => 'required|date',
@@ -108,7 +108,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'nickName' => 'required|string|max:255',
-            'email' =>  'required|email|unique:users,email,'.$id,
+            'email' =>  'required|email|unique:users,email,' . $id,
             'phone' => 'required|numeric',
             'password' => 'required|string|min:8|max:255',
             'birth' => 'required|date',
@@ -134,10 +134,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-
-
-
-       
         User::where("id", $id)->where('appKey', session('appKey'))->delete();
 
         return redirect()->back()
@@ -150,14 +146,13 @@ class UserController extends Controller
         $user = User::where('id', $id)->where('appKey', session('appKey'))->first();
         $message = __('words.client_active');
 
-        if ($user->is_active) {
+        if ($user->is_active == 1) {
             $user->update(['is_active' => 0]);
             $message = __('words.client_not_active');
-        } else
+        } else {
             $user->update(['is_active' => 1]);
-
-        return redirect()->route('User.index')
+        }
+        return redirect()->route('users.index')
             ->with('success', $message);
     }
-
 }

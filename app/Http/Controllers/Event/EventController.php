@@ -79,14 +79,14 @@ class EventController extends Controller
         $request->validate([
 
             'name' => 'required|string',
-            'description' => 'required|string',
+            'description' => 'required|string|max:250',
             'address' => 'required|string',
 
 
             'start.*' => 'required|string',
             'end.*' => 'required|string',
-            'title.*' => 'required|string',
-            'desc_time.*' => 'required|string',
+            'title.*' => 'required|string|max:250',
+            'desc_time.*' => 'required|string|max:250',
             'img.*' => 'required',
             'image' => 'required',
             'ticket_type.*' => 'required|string',
@@ -299,12 +299,12 @@ class EventController extends Controller
         $request->validate([
 
             'name' => 'required|string',
-            'description' => 'required|string',
+            'description' => 'required|string|max:250',
             'address' => 'required|string',
             'start.*' => 'required|string',
             'end.*' => 'required|string',
-            'title.*' => 'required|string',
-            'desc_time.*' => 'required|string',
+            'title.*' => 'required|string|max:250',
+            'desc_time.*' => 'required|string|max:250',
             'img.*' => 'required',
             'image' => 'required',
             'ticket_type.*' => 'required|string',

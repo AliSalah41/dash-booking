@@ -10,11 +10,11 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Hotel\HotelController;
 use App\Http\Controllers\AirlineCountryController;
+use App\Http\Controllers\AppContent\About\AboutController;
 use App\Http\Controllers\Booking\BookingController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Package\PackageController;
 use App\Http\Controllers\Category\CategoryController;
-use App\Http\Controller\AppContent\About\AboutController;
 
 use App\Http\Controllers\AppContent\Email\EmailController;
 use App\Http\Controllers\AppContent\Phone\PhoneController;
@@ -78,7 +78,7 @@ Route::get('/event/show', [EventController::class, 'index'])->name('show');
 Route::get('/events/create', [EventController::class, 'create'])->name('create');
 Route::post('/events/store', [EventController::class, 'store'])->name('store');
 Route::get('/events/show/{id}', [EventController::class, 'show'])->name('btn.show');
-Route::delete('/events/delete/{id}', [EventController::class, 'destroy'])->name('delete');
+Route::delete('/events/delete/{id}', [EventController::class, 'destroy'])->name('event_delete');
 Route::get('/events/edit/{id}', [EventController::class, 'edit'])->name('btn.edit');
 Route::put('/events/update/{id}', [EventController::class, 'update'])->name('update');
 Route::resource('category', CategoryController::class);
@@ -109,10 +109,10 @@ Route::post('create_time', [AirPortController::class, 'createTime'])->name('crea
 Route::delete('time/{id}', [AirPortController::class, 'deleteTime'])->name('deleteTime');
 
 
-// Route::post('/toggle/{id}/{value}', [ToggleController::class, 'toggleStatus'])->name('toggle.status');
 
 
-Route::get('users/activation/{id}', [ToggleController::class, 'activation'])->name('toggle.status');
+
+Route::get('users/toggle/{id}', [ToggleController::class, 'activation'])->name('toggle.status');
 
 
 // Route::get('/ticket/index', [HotelTicketController::class, 'index'])->name('tickets.index');

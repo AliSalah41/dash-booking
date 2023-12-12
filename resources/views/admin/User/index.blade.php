@@ -59,7 +59,7 @@
                                 @if ($user->is_active)
                                     <div class="form-check form-switch">
                                         <input class="form-check-input active" onchange="changeStatus(this)"
-                                               data-url="{{ route('users.activate', $user->id) }}"
+                                        data-url="{{ route('users.activate', $user->id) }}"
                                                class="toggle-class" type="checkbox"
                                             {{ $user->is_active ? 'checked' : '' }}>
                                     </div>

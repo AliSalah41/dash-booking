@@ -103,8 +103,9 @@ Ticket
                 {{--  <label for="" class="mt-3 fs-6">- € {{  $ticket->entertainment->price ?? '-' }}  --}}
                 </label>
         @endif
+        @if($hotel_ticket)
         <label for="" class="mt-3 fs-4 w-100"> {{ $hotel_ticket->reservation_start ? (\Carbon\Carbon::parse($hotel_ticket->reservation_start)->diffInDays(\Carbon\Carbon::parse($hotel_ticket->reservation_end)) - 1) : '-' }}  NIGHTS/{{ $hotel_ticket->reservation_start ? \Carbon\Carbon::parse($hotel_ticket->reservation_start)->diffInDays(\Carbon\Carbon::parse($hotel_ticket->reservation_end)) : '-' }} DAYS STAY</label>
-
+        @endif
                 {{--  <label for="" class="mt-3 fs-6">- MEAL PLAN IS BASED ON ALL INCLUSIVE BASIS (BREAKFAST-LUNCH-DINNER-SNACKS-DRINKS WITHIN
                     THE APPLICABLE FORMULA TILL 23H00)
                     </label>

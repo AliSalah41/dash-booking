@@ -113,7 +113,7 @@
                                     <a class="btn btn-warning"
                                         href="{{ route('btn.edit', $event->id) }}">{{ __('words.update') }}</a>
                                     <form id="myform" method="post" class='d-inline'
-                                        action="{{ route('delete', ['id' => $event->id]) }}">
+                                        action="{{ route('event_delete', ['id' => $event->id]) }}">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger"
