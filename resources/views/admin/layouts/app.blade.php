@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Form;
         <link href="assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
         <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
         <link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
-
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
         <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
         <link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
         <link href="assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />

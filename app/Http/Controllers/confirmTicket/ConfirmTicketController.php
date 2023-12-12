@@ -29,6 +29,9 @@ class ConfirmTicketController extends Controller
     public function index()
     {
         $tickets = Ticket::with([ 'event', 'transportation', 'entertainment', 'hotel', 'airlinecountry'])->get();
+        if ($tickets->isEmpty()) {
+            return view('admin.notFound.index')->with('error', 'No data found to display.');
+        }
 
         return view('admin.confirm.index', compact('tickets'));
 
@@ -58,6 +61,9 @@ class ConfirmTicketController extends Controller
         //  $confirm_ticket = Confirm_Ticket::with([ 'event', 'transportation', 'entertainment', 'hotel', 'airlinecountry','tickets'])->where('id',$id)->first();
         //  $hotel_tickets =Hotel_Ticket::with([ 'tickets', 'hotels'])->where('id',$id)->first();
         $ticket = Ticket::with([ 'event', 'transportation', 'entertainment', 'hotel', 'airlinecountry','user'])->where('id',$id)->first();
+        if (!$ticket) {
+            return view('admin.confirm.index')->with('error', 'No tickets found.');
+        }
         // $hotel_ticket =Hotel_Ticket::with(['hotels'])->where('ticket_id',$id)->first();
         // return $ticket;
         $hotel_ticket =Hotel_Ticket::with(['hotels'])->where('ticket_id',$id)->first();

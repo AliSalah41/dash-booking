@@ -44,7 +44,9 @@ class EventController extends Controller
     {
         // $events = Event::all();
         $events = Event::with(['Category', 'Country', 'City'])->get();
-
+        if ($events->isEmpty()) {
+            return view('admin.notFound.index')->with('error', 'No data found to display.');
+        }
         // $users = Event::where('appKey', session('appKey'))->get();
         return view(session('dashboard') . '.admin.Event.index', compact('events'));
     }
@@ -253,6 +255,9 @@ class EventController extends Controller
     public function show($id)
     {
         $event = Event::where('id', $id)->where('appKey', session('appKey'))->first();
+        if (!$event ) {
+            return view('admin.Event.show')->with('error', 'No tickets found.');
+        }
         $event_times = EventTime::where('event_id', $id)->get();
         $ticket_types = TicketType::where('event_id', $id)->get();
         $event_hotels = Hotel::where('event_id', $id)->get();
