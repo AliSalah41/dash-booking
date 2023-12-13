@@ -17,7 +17,8 @@ Ticket
     <header class="p-2 m-2">
         <div class="row d-flex align-items-center">
           <div class="qr-code col-lg-2 ">
-     <img src="{{ asset('assets/images/Example-QR-code.webp') }}" alt="" class="img-fluid " style="width: 100px; height: 100px;">
+            {!! QrCode::size(150)->generate(route('users.show', ['user' => $user_ticket])) !!}
+     {{--  <img src="{{ asset('assets/images/Example-QR-code.webp') }}" alt="" class="img-fluid " style="width: 100px; height: 100px;">  --}}
      </div>
 
      @php

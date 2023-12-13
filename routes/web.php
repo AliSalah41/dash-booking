@@ -25,12 +25,14 @@ use App\Http\Controllers\confirmTicket\ConfirmTicketController;
 use App\Http\Controllers\Entertainment\EntertainmentController;
 use App\Http\Controllers\Event\ToggleController;
 use App\Http\Controllers\Transportation\TransportationController;
-
+use App\Http\Controllers\QRCodeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 */
+
+// Route::get('/users/{id}', [QRCodeController::class , 'redirectToUserPage'])->name('redirect.user');
 
 Route::get('locale/{locale}', function ($locale) {
     session()->put('locale', $locale);
@@ -88,6 +90,7 @@ Route::resource('booking', HotelTicketController::class);
 Route::resource('airports', AirPortController::class);
 Route::get('confirm/ticket', [ConfirmTicketController::class, 'index'])->name('confirm.index');
 Route::get('confirm/ticket/{id}', [ConfirmTicketController::class, 'show'])->name('confirm.show');
+;
 // Route::get('hotels/create/{id}', [HotelController::class, 'create'])->name('hotels.create');
 // Route::resource('hotels', HotelController::class);
 // Route::get('event/{event}/hotel', [HotelController::class, 'create'])->name('hotels.create');
@@ -110,7 +113,7 @@ Route::delete('time/{id}', [AirPortController::class, 'deleteTime'])->name('dele
 
 
 
-
+// Route::get('test',[QRCodeController::class,'generateQRCode']);
 
 Route::get('users/toggle/{id}', [ToggleController::class, 'activation'])->name('toggle.status');
 

@@ -89,7 +89,7 @@ return [
     ],
 
     'locale' => 'en',
-  
+
 
 
     /*
@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
         Illuminate\Translation\TranslationServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
 
         /*
@@ -197,6 +198,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
     ])->toArray(),
 
 ];

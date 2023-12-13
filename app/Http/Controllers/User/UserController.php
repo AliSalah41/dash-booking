@@ -27,6 +27,9 @@ class UserController extends Controller
     {
         $users = User::where('appKey', session('appKey'))->get();
 
+        if ($users->isEmpty()) {
+            return view('admin.notFound.index')->with('error', 'No data found to display.');
+        }
         return view(session('dashboard') . '.admin.User.index', compact('users'));
     }
 
@@ -78,8 +81,16 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        // return $id;
         $user = User::where('appKey', session('appKey'))->where('id', $id)->first();
+        // return $user;
+        // dd($user);
 
+        if (!$user) {
+            // return "a";
+            return view('admin.notFound.index')->with('error', ' user not found.');
+        }
+        // return "b";
         return view('admin.User.show', compact('user'));
     }
 

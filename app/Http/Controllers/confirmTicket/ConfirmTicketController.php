@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\confirmTicket;
 
-use App\Http\Controllers\Controller;
-use App\Models\Confirm_Ticket;
-use App\Models\Hotel_Ticket;
+use App\Models\User;
 use App\Models\Ticket;
+use App\Models\Hotel_Ticket;
 use Illuminate\Http\Request;
+use App\Models\Confirm_Ticket;
+use App\Http\Controllers\Controller;
 
 class ConfirmTicketController extends Controller
 {
@@ -29,6 +30,8 @@ class ConfirmTicketController extends Controller
     public function index()
     {
         $tickets = Ticket::with([ 'event', 'transportation', 'entertainment', 'hotel', 'airlinecountry'])->get();
+
+
         if ($tickets->isEmpty()) {
             return view('admin.notFound.index')->with('error', 'No data found to display.');
         }
@@ -58,20 +61,44 @@ class ConfirmTicketController extends Controller
      */
     public function show(string $id)
     {
+
         //  $confirm_ticket = Confirm_Ticket::with([ 'event', 'transportation', 'entertainment', 'hotel', 'airlinecountry','tickets'])->where('id',$id)->first();
         //  $hotel_tickets =Hotel_Ticket::with([ 'tickets', 'hotels'])->where('id',$id)->first();
         $ticket = Ticket::with([ 'event', 'transportation', 'entertainment', 'hotel', 'airlinecountry','user'])->where('id',$id)->first();
         if (!$ticket) {
-            return view('admin.confirm.index')->with('error', 'No tickets found.');
+            return view('admin.notFound.index')->with('error', 'No tickets found.');
         }
+        $user_ticket = $ticket->user->id;
+
+        // return $user_ticket;
         // $hotel_ticket =Hotel_Ticket::with(['hotels'])->where('ticket_id',$id)->first();
         // return $ticket;
         $hotel_ticket =Hotel_Ticket::with(['hotels'])->where('ticket_id',$id)->first();
         // return $hotel_ticket;
-          return view('admin.confirm.show', compact('ticket','hotel_ticket'));
+          return view('admin.confirm.show', compact('ticket','hotel_ticket','user_ticket'));
 
 
     }
+    // public function showQR(string $id)
+    // {
+
+    //     //  $confirm_ticket = Confirm_Ticket::with([ 'event', 'transportation', 'entertainment', 'hotel', 'airlinecountry','tickets'])->where('id',$id)->first();
+    //     //  $hotel_tickets =Hotel_Ticket::with([ 'tickets', 'hotels'])->where('id',$id)->first();
+    //     $ticket = Ticket::with(['user'])->where('id',$id)->first();
+    //     if (!$ticket) {
+    //         return view('admin.confirm.index')->with('error', 'No tickets found.');
+    //     }
+    //     $user_ticket = $ticket->user->id;
+
+    //     // return $user_ticket;
+    //     // $hotel_ticket =Hotel_Ticket::with(['hotels'])->where('ticket_id',$id)->first();
+    //     // return $ticket;
+    //     // $hotel_ticket =Hotel_Ticket::with(['hotels'])->where('ticket_id',$id)->first();
+    //     // return $hotel_ticket;
+    //       return view('admin.confirm.show', compact('ticket','hotel_ticket'));
+
+
+    // }
 
     /**
      * Show the form for editing the specified resource.
