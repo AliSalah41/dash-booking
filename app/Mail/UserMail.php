@@ -42,6 +42,7 @@ class UserMail extends Mailable
     {
         return new Envelope(
             subject: 'Compose Email',
+            // subject: '',
         );
     }
 

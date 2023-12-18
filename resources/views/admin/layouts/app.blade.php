@@ -1,8 +1,8 @@
 @php
-use Illuminate\Support\Facades\Form;
+    use Illuminate\Support\Facades\Form;
 @endphp
 @if (app()->getLocale() == 'en')
-{{--    {{dd(app()->getLocale())}}--}}
+    {{--    {{dd(app()->getLocale())}} --}}
     <!doctype html>
     <html lang="en">
 
@@ -40,11 +40,11 @@ use Illuminate\Support\Facades\Form;
         <link rel="stylesheet" href="assets/css/semi-dark.css" />
         <link rel="stylesheet" href="assets/css/header-colors.css" />
         <link rel="stylesheet" href="{{ asset('assets/css/all.min.css') }}" />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.css">
     @else
-{{--            {{dd(app()->getLocale())}}--}}
+        {{--            {{dd(app()->getLocale())}} --}}
 
-            <!doctype html>
+        <!doctype html>
         <html lang="ar" dir="rtl">
 
         <head>
@@ -81,8 +81,7 @@ use Illuminate\Support\Facades\Form;
             <link rel="stylesheet" href="rtl/assets/css/semi-dark.css" />
             <link rel="stylesheet" href="rtl/assets/css/header-colors.css" />
             <link rel="stylesheet"href="{{ asset('assets/css/all.min.css') }}" />
-			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.css">
-
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.css">
 @endif
 <title>@yield('subtitle')</title>
 
@@ -118,7 +117,8 @@ use Illuminate\Support\Facades\Form;
     <!--start overlay-->
     <div class="overlay toggle-icon"></div>
     <!--end overlay-->
-    <!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i class='bx bxs-up-arrow-alt'></i></a>
+    <!--Start Back To Top Button--> <a href="javaScript:;" class="back-to-top"><i
+            class='bx bxs-up-arrow-alt'></i></a>
     <!--End Back To Top Button-->
     <footer class="page-footer">
         <p class="mb-0">Copyright © 2021. All right reserved.</p>
@@ -135,7 +135,7 @@ use Illuminate\Support\Facades\Form;
     <script src="assets/plugins/datatable/js/jquery.dataTables.min.js"></script>
     <script src="assets/plugins/datatable/js/dataTables.bootstrap5.min.js"></script>
 
-	<!--plugins-->
+    <!--plugins-->
 
     <script src="assets/plugins/simplebar/js/simplebar.min.js"></script>
     <script src="assets/plugins/metismenu/js/metisMenu.min.js"></script>
@@ -145,7 +145,7 @@ use Illuminate\Support\Facades\Form;
     <script src="assets/plugins/chartjs/js/Chart.min.js"></script>
     <script src="assets/plugins/chartjs/js/Chart.extension.js"></script>
     <script src="assets/plugins/sparkline-charts/jquery.sparkline.min.js"></script>
-	<script src="assets/plugins/select2/js/select2.min.js"></script>
+    <script src="assets/plugins/select2/js/select2.min.js"></script>
     <!--notification js -->
     <script src="assets/plugins/notifications/js/lobibox.min.js"></script>
     <script src="assets/plugins/notifications/js/notifications.min.js"></script>
@@ -153,17 +153,18 @@ use Illuminate\Support\Facades\Form;
     <script src="https://cdn.tiny.cloud/1/YOUR_API_KEY/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
-            selector: 'textarea',  // Change this selector based on where you want to use the editor
+            selector: 'textarea', // Change this selector based on where you want to use the editor
             plugins: 'autolink lists link image charmap print preview',
             toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | link image',
             menubar: false
         });
     </script>
     <!--app JS-->
-  	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.all.min.js"></script>
     <script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
     <script src="assets/js/widgets.js"></script>
 
+    @yield('scripts')
 
     @stack('scripts')
 
@@ -171,35 +172,34 @@ use Illuminate\Support\Facades\Form;
 
     {{-- ///////////////////////////////////  delete button //////////////////////////////////// --}}
     <script>
-        $(document).on("submit", "form .delete", function (e) {
+        $(document).on("submit", "form .delete", function(e) {
             event.preventDefault();
 
         });
 
 
-        function confirmDelete(event,$id) {
-          event.preventDefault(); // Cancel the default link behavior
-          form = event.target.closest('form');
+        function confirmDelete(event, $id) {
+            event.preventDefault(); // Cancel the default link behavior
+            form = event.target.closest('form');
 
-          Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-          }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-                // document.getElementById('myform').submit();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                    // document.getElementById('myform').submit();
 
-            }
-          });
+                }
+            });
 
         }
-
-      </script>
+    </script>
 
     <script>
         $(document).ready(function() {
@@ -209,7 +209,7 @@ use Illuminate\Support\Facades\Form;
             });
         });
 
-        $(window).on('load', function(){
+        $(window).on('load', function() {
             $('.preloader').fadeOut('slow');
             // $('.wrapper').fadeIn('slow');
             $('.wrapper').removeClass('d-none');
@@ -250,6 +250,6 @@ use Illuminate\Support\Facades\Form;
 </body>
 
 
-{{--    AIzaSyDF3aj5xiKr4Z9POwAehwPGDed10z3zlUs--}}
+{{--    AIzaSyDF3aj5xiKr4Z9POwAehwPGDed10z3zlUs --}}
 
 </html>

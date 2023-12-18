@@ -7,6 +7,8 @@ use App\Mail\UserMail;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\AirlineCountry;
+use App\Models\Event;
 use Illuminate\Support\Facades\Mail;
 // use App\Http\Controllers\UserMail;
 class EmailController extends Controller
@@ -15,8 +17,9 @@ class EmailController extends Controller
     {
         // استرجاع بيانات المستخدمين من قاعدة البيانات
         $users = User::all();
-
-        return view('send-email', ['users' => $users]);
+        $events = Event::latest()->get();
+        $airlines = AirlineCountry::all();
+        return view('send-email', compact('users','events','airlines'));
     }
 
 
