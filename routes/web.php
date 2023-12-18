@@ -125,3 +125,5 @@ Route::get('users/toggle/{id}', [ToggleController::class, 'activation'])->name('
 // Route::get('/ticket/index', [HotelTicketController::class, 'index'])->name('tickets.index');
 // web.php
 // Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+Route::get('/statistics', \App\Http\Controllers\StatisticsController::class)->name('statistics');

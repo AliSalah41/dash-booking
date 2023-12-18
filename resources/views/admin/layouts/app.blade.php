@@ -161,9 +161,11 @@ use Illuminate\Support\Facades\Form;
     </script>
     <!--app JS-->
   	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.all.min.js"></script>
+    <script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>
+    <script src="assets/js/widgets.js"></script>
 
 
-    @yield('scripts')
+    @stack('scripts')
 
 
 

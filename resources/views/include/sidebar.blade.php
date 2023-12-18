@@ -54,6 +54,15 @@
             </ul>
 
         </li>
+        <li>
+            <a href="{{ asset(route('statistics')) }}">
+                <div class="parent-icon">
+                    {{-- <i class='bx bx-cookie'></i> --}}
+                    <i class="fa-solid fa-chart-simple"></i>
+                </div>
+                <div class="menu-title">Statistics</div>
+            </a>
+        </li>
         <!-- <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-buildings"></i>
