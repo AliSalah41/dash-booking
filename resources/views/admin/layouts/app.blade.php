@@ -150,6 +150,15 @@ use Illuminate\Support\Facades\Form;
     <script src="assets/plugins/notifications/js/lobibox.min.js"></script>
     <script src="assets/plugins/notifications/js/notifications.min.js"></script>
     <script src="assets/js/index.js"></script>
+    <script src="https://cdn.tiny.cloud/1/YOUR_API_KEY/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',  // Change this selector based on where you want to use the editor
+            plugins: 'autolink lists link image charmap print preview',
+            toolbar: 'undo redo | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | link image',
+            menubar: false
+        });
+    </script>
     <!--app JS-->
   	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.all.min.js"></script>
 

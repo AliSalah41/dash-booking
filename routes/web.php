@@ -16,7 +16,7 @@ use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Package\PackageController;
 use App\Http\Controllers\Category\CategoryController;
 
-use App\Http\Controllers\AppContent\Email\EmailController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\AppContent\Phone\PhoneController;
 use App\Http\Controllers\HotelTicket\HotelTicketController;
 use App\Http\Controllers\AppContent\Policy\PolicyController;
@@ -33,7 +33,11 @@ use App\Http\Controllers\QRCodeController;
 */
 
 // Route::get('/users/{id}', [QRCodeController::class , 'redirectToUserPage'])->name('redirect.user');
+// Route::post('/send-email', [EmailController::class, 'sendEmail'])->name('send.email');
+// Route::get('/show-email', [EmailController::class, 'showComposeForm'])->name('email.show');
 
+Route::get('/send-email', [EmailController::class, 'showEmailPage'])->name('email.show');
+Route::post('/send-email', [EmailController::class, 'sendEmail'])-> name('send.email');
 Route::get('locale/{locale}', function ($locale) {
     session()->put('locale', $locale);
     return redirect()->back();

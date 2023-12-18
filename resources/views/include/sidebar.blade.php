@@ -143,6 +143,7 @@
             </ul>
 
         </li>
+
         <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="fa-regular fa-circle-check" style="color: #6c757d;"></i>
@@ -157,11 +158,30 @@
                     <li> <a class="menu-title" href="{{ route('checks.index') }}"><i
                         class="bx bx-right-arrow-alt"></i>Check in</a>
             </li>
+            <li> <a class="menu-title" href="{{ route('email.show') }}"><i
+                class="bx bx-right-arrow-alt"></i>Send Email</a>
+    </li>
                 @endcan
             </ul>
             </li>
         <li>
 
+
+            <li>
+
+                <ul>
+                     {{-- <li> <a class="menu-title" href="{{ route('airports.index') }}"><i
+                                class="bx bx-right-arrow-alt"></i>{{ __('words.airlines') }}</a>
+                    </li>  --}}
+
+                    {{--  @can('airline-list' . session('appKey'))  --}}
+                        {{--  <li> <a class="menu-title" href=""><i
+                                    class="bx bx-right-arrow-alt"></i>Send Email</a>
+                        </li>  --}}
+                    {{--  @endcan  --}}
+                </ul>
+
+            </li>
         {{--  <li>
     <a href="javascript:;" class="has-arrow">
         <div class="parent-icon"><i class="fa-solid fa-hotel" style="color: #000000;"></i>

@@ -31,6 +31,8 @@
                     <option value="0" id='not_active'>{{ __('words.not_activation') }}</option>
                 </select>
             </div>
+         
+
             <div class="table-responsive">
                 <table id="example" class="table table-striped table-bordered" style="width:100%">
                     <thead>
