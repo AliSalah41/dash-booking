@@ -3,8 +3,8 @@
         <div class="card-body">
             <div class="d-flex align-items-center">
                 <div>
-                    <p class="mb-0 text-capitalize">{{$title}}</p>
-                    <h5 class="mb-0 formatted-number">{{$data['total']}}</h5>
+                    <p class="mb-0 text-capitalize" style="font-size: 18px">{{$title}}</p>
+                    <h4 class="mb-0 formatted-number">{{$data['total']}}</h4>
                 </div>
                 <div class="dropdown ms-auto">
                     <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
@@ -32,18 +32,20 @@
     </div>
 </div>
 
+
 @push('scripts')
     {{--    <script src="assets/plugins/apexcharts-bundle/js/apexcharts.min.js"></script>--}}
     {{--    <script src="assets/js/widgets.js"></script>--}}
 {{--    {!! $chart1->renderChartJsLibrary() !!}--}}
 {{--    {!! $chart1->renderJs() !!}--}}
+
     <script>
 
         var e = {
             series: [{name: "{{$titleValue}}", data: @json($data['values'])}],
             chart: {
                 type: "{{$type}}",
-                height: 65,
+                height: 100,
                 toolbar: {show: !1},
                 zoom: {enabled: !1},
                 dropShadow: {enabled: !0, top: 3, left: 14, blur: 4, opacity: .12, color: "{{$color}}"},
@@ -64,8 +66,8 @@
                         }
                     },
                     formatter: function(val, opts) {
-                        console.log(val)
-                        console.log(opts)
+                        // console.log(val)
+                        // console.log(opts)
                         // console.log(opts.w.globals.categoryLabels[opts.dataPointIndex])
                         var category = opts.w.globals.categoryLabels[opts.dataPointIndex];
                         return val + " at " + category;

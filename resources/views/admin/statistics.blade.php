@@ -19,6 +19,8 @@
     @push('scripts')
         {!! $userChart->script() !!}
     @endpush
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
     <h6 class="mb-0 text-uppercase">{{ __('words.clients') }}</h6>
     <hr />
     <div class="card">
@@ -26,552 +28,65 @@
             <div class="mt-2">
                 @include('admin.layouts.messages')
             </div>
-            <div class="me-auto col-2">
-                <label class="form-label d-inline">{{ __('words.filter') }}:</label>
-                <select class="form-control d-inline-block" id="is_active" class="mb-3">
-                    <option value="-1">{{ __('words.select_all') }}</option>
-                    <option value="1" id='active'>{{ __('words.activation') }}</option>
-                    <option value="0" id='not_active'>{{ __('words.not_activation') }}</option>
-                </select>
-            </div>
-
             <div class="page-content">
-                <h6 class="mb-0 text-uppercase">Data Widgets</h6>
+                <h6 class="mb-0 text-uppercase">Basic Data</h6>
                 <hr />
-                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-2 row-cols-xxl-4">
                     <div class="col">
-                        <x-statistics-card id="one" title-value="new users" :data="$userCard" color="#17a00e" title="total users" type="line" color="#17a00e" ></x-statistics-card>
-                        <x-statistics-card id="two" title-value="new ticket" :data="$ticketCard" color="#f41127" title="total ticket" type="area" color="#f41127" ></x-statistics-card>
+                        <x-basic-widget  title="total booked tickets" number="{{\App\Models\Ticket::count()}}"  bgColor="bg-gradient-cosmic" icon="fa-ticket text-white fa-4x fa-rotate-90"></x-basic-widget>
+                    </div>
+                    <div class="col">
+                        <x-basic-widget  title="total registered users" number="{{\App\Models\User::count()}}"  bgColor="bg-gradient-ibiza" icon="fa-users text-white fa-4x"></x-basic-widget>
+                    </div>
+                    <div class="col">
+                        <x-basic-widget  title="total income" number="{{\App\Models\Ticket::sum('total_price')}}"  bgColor="bg-gradient-ohhappiness" icon="fa-money-bill text-white fa-4x"></x-basic-widget>
+                    </div>
+                    <div class="col">
+                        <x-basic-widget  title="Average age of ticket holders" number="28.4"  bgColor="bg-gradient-kyoto" icon="fa-cake-candles text-white fa-4x" ></x-basic-widget>
+                    </div>
+                </div><!--end row-->
+                <h6 class="mb-2 text-uppercase">Dynamic DATA</h6>
+                <hr>
+                <form id="form" class="row g-3" method="GET" action="{{request()->url()}}" >
+                    <div class="mb-3 mt-4 " id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        <span></span> <i class="fa fa-caret-down"></i>
+                    </div>
+
+                    <input type="hidden" id="startDateInput" name="start" value="{{request()->start}}">
+                    <input type="hidden" id="endDateInput" name="end" value="{{request()->end}}">
+
+                    <div class="mb-3">
+{{--                        <label class="form-label">Select2 Text Control</label>--}}
+                        <x-select
+                            label="event" name="event_id"
+                            :options="['0'=>'all']+\App\Models\Event::pluck('name','id')->toArray()"
+                            old="{{request()->event_id??0}}" ></x-select>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary px-5 mb-5">search</button>
+                    </div>
+                </form>
+
+
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+                    <div class="col">
+                        <x-statistics-card id="one"  title="new users" title-value="new users" :data="$userCard" color="#17a00e" type="line" color="#17a00e" ></x-statistics-card>
+                    </div>
+                    <div class="col">
+                        <x-statistics-card id="two" title="new ticket" title-value="new ticket" :data="$ticketCard" color="#f41127" type="area" color="#f41127" ></x-statistics-card>
+                    </div>
+                    <div class="col">
                         <x-statistics-card id="three" :data="$incomeCard" title="ticket income" title-value="income"  color="#f41127" type="area" color="#17a00e" ></x-statistics-card>
                     </div>
                     <div class="col">
-                        <div class="card radius-10">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0">Page Views</p>
-                                        <h5 class="mb-0">42,892</h5>
-                                    </div>
-                                    <div class="dropdown ms-auto">
-                                        <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
-                                             data-bs-toggle="dropdown"> <i class='bx bx-dots-horizontal-rounded font-22'></i>
-                                        </div>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="javascript:;">Action</a>
-                                            </li>
-                                            <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                                            </li>
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="" id="w-chart2"></div>
-                            </div>
-                        </div>
+                        <x-statistics-card-circular id="four" :data="$countriesWithMostTicketsCard"></x-statistics-card-circular>
                     </div>
                     <div class="col">
-                        <div class="card radius-10">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0">Avg. Session Duration</p>
-                                        <h5 class="mb-0">00:03:20</h5>
-                                    </div>
-                                    <div class="dropdown ms-auto">
-                                        <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
-                                             data-bs-toggle="dropdown"> <i class='bx bx-dots-horizontal-rounded font-22'></i>
-                                        </div>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="javascript:;">Action</a>
-                                            </li>
-                                            <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                                            </li>
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="" id="w-chart3"></div>
-                            </div>
-                        </div>
+                        <x-statistics-card-circular id="five" :data="$mostTypesOfTickets"></x-statistics-card-circular>
                     </div>
                     <div class="col">
-                        <div class="card radius-10">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0">Bounce Rate</p>
-                                        <h5 class="mb-0">51.46%</h5>
-                                    </div>
-                                    <div class="dropdown ms-auto">
-                                        <div class="dropdown-toggle dropdown-toggle-nocaret cursor-pointer"
-                                             data-bs-toggle="dropdown"> <i class='bx bx-dots-horizontal-rounded font-22'></i>
-                                        </div>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="javascript:;">Action</a>
-                                            </li>
-                                            <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                                            </li>
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="" id="w-chart4"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10 overflow-hidden">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0">Total Orders</p>
-                                        <h5 class="mb-0">867</h5>
-                                    </div>
-                                    <div class="ms-auto"> <i class='bx bx-cart font-30'></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="" id="w-chart5"></div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10 overflow-hidden">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0">Total Income</p>
-                                        <h5 class="mb-0">$52,945</h5>
-                                    </div>
-                                    <div class="ms-auto"> <i class='bx bx-wallet font-30'></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="" id="w-chart6"></div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10 overflow-hidden">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0">Total Users</p>
-                                        <h5 class="mb-0">24.5K</h5>
-                                    </div>
-                                    <div class="ms-auto"> <i class='bx bx-bulb font-30'></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="" id="w-chart7"></div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10 overflow-hidden">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0">Comments</p>
-                                        <h5 class="mb-0">869</h5>
-                                    </div>
-                                    <div class="ms-auto"> <i class='bx bx-chat font-30'></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="" id="w-chart8"></div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10 overflow-hidden">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0">Total Orders</p>
-                                        <h5 class="mb-0">867</h5>
-                                    </div>
-                                    <div class="ms-auto"> <i class='bx bx-cart font-30'></i>
-                                    </div>
-                                </div>
-                                <div class="progress radius-10 mt-4" style="height:4.5px;">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 46%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10 overflow-hidden">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0">Total Income</p>
-                                        <h5 class="mb-0">$52,945</h5>
-                                    </div>
-                                    <div class="ms-auto"> <i class='bx bx-wallet font-30'></i>
-                                    </div>
-                                </div>
-                                <div class="progress radius-10 mt-4" style="height:4.5px;">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 72%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10 overflow-hidden">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0">Total Users</p>
-                                        <h5 class="mb-0">24.5K</h5>
-                                    </div>
-                                    <div class="ms-auto"> <i class='bx bx-bulb font-30'></i>
-                                    </div>
-                                </div>
-                                <div class="progress radius-10 mt-4" style="height:4.5px;">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 68%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10 overflow-hidden">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0">Comments</p>
-                                        <h5 class="mb-0">869</h5>
-                                    </div>
-                                    <div class="ms-auto"> <i class='bx bx-chat font-30'></i>
-                                    </div>
-                                </div>
-                                <div class="progress radius-10 mt-4" style="height:4.5px;">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 66%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--end row-->
-                <h6 class="mb-0 text-uppercase">Static Widgets</h6>
-                <hr />
-                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
-                    <div class="col">
-                        <div class="card radius-10">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-secondary">Revenue</p>
-                                        <h4 class="my-1">$4805</h4>
-                                        <p class="mb-0 font-13 text-success"><i
-                                                class="bx bxs-up-arrow align-middle"></i>$34 from last week</p>
-                                    </div>
-                                    <div class="widgets-icons bg-light-success text-success ms-auto"><i
-                                            class="bx bxs-wallet"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-secondary">Total Customers</p>
-                                        <h4 class="my-1">8.4K</h4>
-                                        <p class="mb-0 font-13 text-success"><i
-                                                class='bx bxs-up-arrow align-middle'></i>$24 from last week</p>
-                                    </div>
-                                    <div class="widgets-icons bg-light-info text-info ms-auto"><i
-                                            class='bx bxs-group'></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-secondary">Store Visitors</p>
-                                        <h4 class="my-1">59K</h4>
-                                        <p class="mb-0 font-13 text-danger"><i
-                                                class='bx bxs-down-arrow align-middle'></i>$34 from last week</p>
-                                    </div>
-                                    <div class="widgets-icons bg-light-danger text-danger ms-auto"><i
-                                            class='bx bxs-binoculars'></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-secondary">Bounce Rate</p>
-                                        <h4 class="my-1">34.46%</h4>
-                                        <p class="mb-0 font-13 text-danger"><i
-                                                class='bx bxs-down-arrow align-middle'></i>12.2% from last week</p>
-                                    </div>
-                                    <div class="widgets-icons bg-light-warning text-warning ms-auto"><i
-                                            class='bx bx-line-chart-down'></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-secondary">Chrome Users</p>
-                                        <h4 class="my-1">42K</h4>
-                                    </div>
-                                    <div class="text-primary ms-auto font-35"><i class='bx bxl-chrome'></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-secondary">Github Users</p>
-                                        <h4 class="my-1">56M</h4>
-                                    </div>
-                                    <div class="text-danger ms-auto font-35"><i class='bx bxl-github'></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-secondary">Firefox Users</p>
-                                        <h4 class="my-1">42M</h4>
-                                    </div>
-                                    <div class="text-warning ms-auto font-35"><i class='bx bxl-firefox'></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-secondary">Shopify Users</p>
-                                        <h4 class="my-1">85M</h4>
-                                    </div>
-                                    <div class="text-success ms-auto font-35"><i class='bx bxl-shopify'></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--end row-->
-                <div class="row row-cols-1 row-cols-md-3 row-cols-xl-5">
-                    <div class="col">
-                        <x-widget title="Average age of ticket holders" value="{{$averageAge}}" color="#0d6efd"></x-widget>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10">
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <div class="widgets-icons rounded-circle mx-auto bg-light-danger text-danger mb-3">
-                                        <i class='bx bxl-twitter'></i>
-                                    </div>
-                                    <h4 class="my-1">34M</h4>
-                                    <p class="mb-0 text-secondary">Twitter Followers</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10">
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <div class="widgets-icons rounded-circle mx-auto bg-light-info text-info mb-3"><i
-                                            class='bx bxl-linkedin-square'></i>
-                                    </div>
-                                    <h4 class="my-1">56K</h4>
-                                    <p class="mb-0 text-secondary">Linkedin Followers</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10">
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <div class="widgets-icons rounded-circle mx-auto bg-light-success text-success mb-3">
-                                        <i class='bx bxl-youtube'></i>
-                                    </div>
-                                    <h4 class="my-1">38M</h4>
-                                    <p class="mb-0 text-secondary">YouTube Subscribers</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10">
-                            <div class="card-body">
-                                <div class="text-center">
-                                    <div class="widgets-icons rounded-circle mx-auto bg-light-warning text-warning mb-3">
-                                        <i class='bx bxl-dropbox'></i>
-                                    </div>
-                                    <h4 class="my-1">28K</h4>
-                                    <p class="mb-0 text-secondary">Dropbox Users</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--end row-->
-                <h6 class="mb-0 text-uppercase">Color Static Widgets</h6>
-                <hr />
-                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
-                    <div class="col">
-                        <div class="card radius-10 bg-primary bg-gradient">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-white">Total Orders</p>
-                                        <h4 class="my-1 text-white">845</h4>
-                                    </div>
-                                    <div class="text-white ms-auto font-35"><i class='bx bx-cart-alt'></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10 bg-danger bg-gradient">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-white">Total Income</p>
-                                        <h4 class="my-1 text-white">$89,245</h4>
-                                    </div>
-                                    <div class="text-white ms-auto font-35"><i class='bx bx-dollar'></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10 bg-warning bg-gradient">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-dark">Total Users</p>
-                                        <h4 class="text-dark my-1">24.5K</h4>
-                                    </div>
-                                    <div class="text-dark ms-auto font-35"><i class='bx bx-user-pin'></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10 bg-success bg-gradient">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-white">Comments</p>
-                                        <h4 class="my-1 text-white">8569</h4>
-                                    </div>
-                                    <div class="text-white ms-auto font-35"><i class='bx bx-comment-detail'></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10 bg-success">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-white">Revenue</p>
-                                        <h4 class="my-1 text-white">$4805</h4>
-                                        <p class="mb-0 font-13 text-white"><i class="bx bxs-up-arrow align-middle"></i>$34
-                                            from last week</p>
-                                    </div>
-                                    <div class="widgets-icons bg-white text-success ms-auto"><i class="bx bxs-wallet"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10 bg-info">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-dark">Total Customers</p>
-                                        <h4 class="my-1 text-dark">8.4K</h4>
-                                        <p class="mb-0 font-13 text-dark"><i class="bx bxs-up-arrow align-middle"></i>$24
-                                            from last week</p>
-                                    </div>
-                                    <div class="widgets-icons bg-white text-dark ms-auto"><i class="bx bxs-group"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10 bg-danger">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-white">Store Visitors</p>
-                                        <h4 class="my-1 text-white">59K</h4>
-                                        <p class="mb-0 font-13 text-white"><i
-                                                class="bx bxs-down-arrow align-middle"></i>$34 from last week</p>
-                                    </div>
-                                    <div class="widgets-icons bg-white text-danger ms-auto"><i
-                                            class="bx bxs-binoculars"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card radius-10 bg-warning">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <p class="mb-0 text-dark">Bounce Rate</p>
-                                        <h4 class="my-1 text-dark">34.46%</h4>
-                                        <p class="mb-0 font-13 text-dark"><i
-                                                class="bx bxs-down-arrow align-middle"></i>12.2% from last week</p>
-                                    </div>
-                                    <div class="widgets-icons bg-white text-dark ms-auto"><i
-                                            class='bx bx-line-chart-down'></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <x-statistics-card-circular id="six" :data="$mostAgeGroupsBookTicktes"></x-statistics-card-circular>
                     </div>
                 </div>
                 <!--end row-->
@@ -580,5 +95,89 @@
         </div>
     </div>
 
-
 @endsection
+@push('scripts')
+    <!--app JS-->
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+
+            const startInput = $('input[name=start]').val();
+            const endInput = $('input[name=end]').val();
+
+            if (startInput){
+                var start = moment(startInput);
+                console.log(start)
+            }else {
+                var start = moment().subtract(29, 'days');
+            }
+            if (endInput){
+                var end = moment(endInput);
+                console.log(end)
+            }else {
+                var end = moment();
+            }
+            console.log('here')
+
+{{--            @if(!empty(request()->end))--}}
+{{--                var end = moment({{request()->end}});--}}
+{{--            @else--}}
+{{--                var end = moment();--}}
+{{--            @endif--}}
+            console.log('end')
+            console.log('end')
+            console.log(start.format('MMMM D, YYYY'))
+            console.log(end.format('MMMM D, YYYY'))
+
+
+
+
+            function cb(start, end) {
+                if(start && start._isValid && end && end._isValid){
+                    console.log(start)
+                    console.log(end)
+                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                    $('#startDateInput').val(start.format('YYYY-MM-DD'));
+                    $('#endDateInput').val(end.format('YYYY-MM-DD'));
+                } else {
+                    $('#reportrange span').html('All Times');
+                    $('#startDateInput').val('');
+                    $('#endDateInput').val('');
+                }
+            }
+
+            $('#reportrange').daterangepicker({
+                startDate: start,
+                endDate: end,
+                ranges: {
+                    'Today': [moment(), moment()],
+                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                    'This Month': [moment().startOf('month'), moment().endOf('month')],
+                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                }
+            }, cb);
+
+            cb(start,end);
+
+            // cb([null,null]);
+            // cb(start,end);
+
+            // Form submission handling
+            $('#dateRangeForm').submit(function() {
+                // Perform any additional actions before form submission if needed
+                // e.g., validation checks
+
+                // Allow the form to submit
+                return true;
+            });
+
+        });
+    </script>
+
+
+@endpush
