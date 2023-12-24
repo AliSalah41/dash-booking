@@ -35,9 +35,12 @@ use App\Http\Controllers\QRCodeController;
 // Route::get('/users/{id}', [QRCodeController::class , 'redirectToUserPage'])->name('redirect.user');
 // Route::post('/send-email', [EmailController::class, 'sendEmail'])->name('send.email');
 // Route::get('/show-email', [EmailController::class, 'showComposeForm'])->name('email.show');
-
+Route::get('/result', function () {
+    return view('id');
+});
 Route::get('/send-email', [EmailController::class, 'showEmailPage'])->name('email.show');
 Route::post('/send-email', [EmailController::class, 'sendEmail'])-> name('send.email');
+Route::get('/users/change/{eventIds}/{airlineIds}', [EmailController::class, 'event_airline'])->name('event.airline');
 Route::get('locale/{locale}', function ($locale) {
     session()->put('locale', $locale);
     return redirect()->back();
