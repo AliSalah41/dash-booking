@@ -2,10 +2,10 @@
 @extends('admin.layouts.app')
 @section('home', '/airports')
 @section('title')
-    {{ __('words.show_airline') }}
+   {{ __('words.app_content') }}
 @stop
 @section('subtitle')
-    {{ __('words.show_airline') }}
+   {{ __('words.about_site') }}
 @stop
 
 @section('content')
