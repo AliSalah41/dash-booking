@@ -67,7 +67,9 @@ class AboutController extends Controller
      */
     public function show($id)
     {
-        //
+        $check = AppContent::where('id', $id)->first();
+
+        return view('admin.AppContent.About.show', compact('check'));
     }
 
     /**

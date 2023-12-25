@@ -12,7 +12,7 @@ use App\Models\Event;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Mail;
 // use App\Http\Controllers\UserMail;
-class EmailController extends Controller
+class EmailsController extends Controller
 {
     public function showEmailPage()
     {
@@ -26,7 +26,7 @@ class EmailController extends Controller
 
     public function event_airline($eventIds,$airlineIds)
     {
-  
+
         if ($airlineIds == 0) {
             // Fetch all users related to the specified eventId without considering the airline
             $users_ticket = Ticket::with('user')->where('event_id', $eventIds)->get();

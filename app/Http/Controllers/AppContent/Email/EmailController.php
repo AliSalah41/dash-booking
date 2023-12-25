@@ -67,7 +67,7 @@ class EmailController extends Controller
      */
     public function show($id)
     {
-        //
+       
     }
 
     /**

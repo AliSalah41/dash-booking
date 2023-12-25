@@ -48,6 +48,7 @@
                                 <td>{{ $about->local }}</td>
                                 @can('about-edit'.session('appKey'))
                                     <td>
+                                        <a class="btn btn-success" href="{{route('about.show', $about->id)}}">{{__('words.show')}}</a>
                                         <a href="{{ route('about.edit', $about->id ) }}" class="btn btn-warning">{{ __('words.update') }}</a>
                                         <form id="myform" method="post" class='d-inline' action="{{ route('about.destroy', $about->id ) }}">
                                             @csrf

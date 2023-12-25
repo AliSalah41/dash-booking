@@ -2,30 +2,31 @@
 
 use App\Models\Confirm_Ticket;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AppContent\Email\EmailController;
+use App\Http\Controllers\EmailsController;
+use App\Http\Controllers\QRCodeController;
 use App\Http\Controllers\AirPortController;
+use App\Http\Controllers\CheckInController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Hotel\HotelController;
+use App\Http\Controllers\Event\ToggleController;
 use App\Http\Controllers\AirlineCountryController;
-use App\Http\Controllers\AppContent\About\AboutController;
+
 use App\Http\Controllers\Booking\BookingController;
 use App\Http\Controllers\Company\CompanyController;
 use App\Http\Controllers\Package\PackageController;
 use App\Http\Controllers\Category\CategoryController;
-
-use App\Http\Controllers\EmailController;
+use App\Http\Controllers\AppContent\About\AboutController;
 use App\Http\Controllers\AppContent\Phone\PhoneController;
 use App\Http\Controllers\HotelTicket\HotelTicketController;
 use App\Http\Controllers\AppContent\Policy\PolicyController;
-use App\Http\Controllers\CheckInController;
 use App\Http\Controllers\confirmTicket\ConfirmTicketController;
 use App\Http\Controllers\Entertainment\EntertainmentController;
-use App\Http\Controllers\Event\ToggleController;
 use App\Http\Controllers\Transportation\TransportationController;
-use App\Http\Controllers\QRCodeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,9 +39,9 @@ use App\Http\Controllers\QRCodeController;
 Route::get('/result', function () {
     return view('id');
 });
-Route::get('/send-email', [EmailController::class, 'showEmailPage'])->name('email.show');
-Route::post('/send-email', [EmailController::class, 'sendEmail'])-> name('send.email');
-Route::get('/users/change/{eventIds}/{airlineIds}', [EmailController::class, 'event_airline'])->name('event.airline');
+Route::get('/send-email', [EmailsController::class, 'showEmailPage'])->name('email.show');
+Route::post('/send-email', [EmailsController::class, 'sendEmail'])-> name('send.email');
+Route::get('/users/change/{eventIds}/{airlineIds}', [EmailsController::class, 'event_airline'])->name('event.airline');
 Route::get('locale/{locale}', function ($locale) {
     session()->put('locale', $locale);
     return redirect()->back();
