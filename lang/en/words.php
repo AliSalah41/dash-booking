@@ -427,6 +427,7 @@ return [
 
 
     'content_required_validation'           => 'this Content is required',
+    'title_required_validation'           => 'this Title is required',
     'type_required_validation'              => 'Type Field is required',
     'local_required_validation'             => 'The Language Field is required',
 

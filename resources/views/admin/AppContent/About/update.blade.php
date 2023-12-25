@@ -22,6 +22,14 @@
                         @csrf
                         @method('put')
                         <div class="col-12">
+                            <label for="" class="form-label">Title</label>
+                            <input type="text" value="{{ $about->title }}" class="form-control" name="title" id="inputAddress" placeholder="" rows="5">
+                            @error('title')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="col-12">
                             <label for="inputAddress" class="form-label">{{ __('words.about_site_content') }}</label>
                             <textarea class="form-control" name="content" id="inputAddress" placeholder="{{ __('words.about_site') }}..." rows="5">{{ $about->content }}</textarea>
                             @error('content')

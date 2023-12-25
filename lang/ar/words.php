@@ -412,6 +412,7 @@ return [
     'passengers_digits_validation'          => 'هذا الحقل لا  يزيد عن رقمين',
 
     'content_required_validation'           => 'هذا الحقل مطلوب',
+    'title_required_validation'           => 'هذا الحقل مطلوب',
     'type_required_validation'              => 'حقل النوع مطلوب',
     'local_required_validation'             => 'حقل اللغة مطلوب',
 

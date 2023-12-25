@@ -46,6 +46,7 @@ class AboutController extends Controller
      */
     public function store(AboutRequest $request)
     {
+        // return $request;
         $check = AppContent::where('appKey', session('appKey'))->where('key', 'about')->get();
         foreach($check as $check){
             if($check->local == $request->local && $check->countries_id == $request->countries_id)
@@ -103,6 +104,8 @@ class AboutController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $about = AppContent::where('id', $id)->first();
+        $about->delete();
+        return redirect()->route('about.index')->with('success', __('words.updated'));
     }
 }

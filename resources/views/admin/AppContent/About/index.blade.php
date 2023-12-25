@@ -28,6 +28,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Title</th>
                             <th>{{ __('words.about_site') }}</th>
                             {{-- <th>{{ __('words.type') }}</th> --}}
                             {{-- <th>{{ __('words.country') }}</th> --}}
@@ -40,6 +41,7 @@
                         @foreach ($about as $about)
                             <tr>
                                 <td>{{ $n++ }}</td>
+                                <td> {{ $about->title }} </td>
                                 <td><abbr title="{{ $about->content }}" class="initialism">{{ __('words.about_site_content') }}</abbr></td>
                                 {{-- <td>{{ $about->type }}</td> --}}
                                 {{-- <td>{{ $about->Country->country }}</td> --}}
@@ -47,6 +49,11 @@
                                 @can('about-edit'.session('appKey'))
                                     <td>
                                         <a href="{{ route('about.edit', $about->id ) }}" class="btn btn-warning">{{ __('words.update') }}</a>
+                                        <form id="myform" method="post" class='d-inline' action="{{ route('about.destroy', $about->id ) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-danger" onclick="confirmDelete(event)">{{__('words.delete')}}</button>
+                                        </form>
                                         {{-- <form action='{{ route('policy.destroy', $policy->id ) }}' class='d-inline' method="post">
                                             @csrf
                                             @method('delete')

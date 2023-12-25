@@ -13,6 +13,7 @@ class AppContent extends Model
     protected $table="app_content";
 
     protected $fillable =[
+        "title",
         "key",
         "content",
         "local",

@@ -23,7 +23,7 @@
                         <div class="col-12">
                             <label for="" class="form-label">Title</label>
                             {{--  <input  class="form-control" value="{{ old('content') }}" name="content" id="inputAddress" placeholder="{{ __('words.about_site') }}..." rows="5"></textarea>  --}}
-                            <input   type="text" class="form-control" name="title" placeholder="Title">
+                            <input   type="text" value="{{ old('title') }}" class="form-control" name="title" placeholder="Title">
                             @error('title')
                                 <small class="form-text text-danger">{{ $message }}</small>
                             @enderror

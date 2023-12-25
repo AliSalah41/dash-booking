@@ -25,12 +25,14 @@ class AboutRequest extends FormRequest
     {
         return [
             'content' => 'required|string',
+            'title' => 'required|string',
             'local'     => 'required',
         ];
     }
 
     public function messages(){
         return [
+            'title.required'             => __('words.title_required_validation'),
             'content.required'          =>  __('words.content_required_validation'),
             'local.required'            =>  __('words.local_required_validation'),
             'countries_id.required'     =>  __('words.country_required_validation'),
