@@ -9,6 +9,15 @@ class Ticket extends Model
 {
     use HasFactory;
     protected $table = 'tickets';
+    public function editTicket()
+    {
+        return $this->hasOne(Ticket::class, 'edit_ticket');
+    }
+
+    public function originalTicket()
+    {
+        return $this->belongsTo(Ticket::class, 'id');
+    }
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -20,7 +29,7 @@ class Ticket extends Model
 
     public function transportation()
     {
-        return $this->belongsTo(Transportation::class , 'transportion_id');
+        return $this->belongsTo(Transportation::class, 'transportion_id');
     }
 
     public function entertainment()
@@ -30,7 +39,7 @@ class Ticket extends Model
 
     public function hotelticket()
     {
-        return $this->belongsTo(Hotel_Ticket::class ,'hotel_ticket_id');
+        return $this->belongsTo(Hotel_Ticket::class, 'hotel_ticket_id');
     }
     public function tickettype()
     {
@@ -38,7 +47,7 @@ class Ticket extends Model
     }
     public function check_in()
     {
-        return $this->belongsTo(check_in::class , 'ticket_id');
+        return $this->belongsTo(check_in::class, 'ticket_id');
     }
 
     public function hotel()
@@ -47,7 +56,7 @@ class Ticket extends Model
     }
     public function airlinecountry()
     {
-        return $this->belongsTo(AirlineCountry::class , 'airlines_counrty_id');
+        return $this->belongsTo(AirlineCountry::class, 'airlines_counrty_id');
     }
     public function confirmtickets()
     {

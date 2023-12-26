@@ -170,6 +170,10 @@
             <li> <a class="menu-title" href="{{ route('email.show') }}"><i
                 class="bx bx-right-arrow-alt"></i>Send Email</a>
     </li>
+
+    <li> <a class="menu-title" href="{{ route('index.edit_ticket') }}"><i
+        class="bx bx-right-arrow-alt"></i>Show tickets</a>
+</li>
                 @endcan
             </ul>
             </li>

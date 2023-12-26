@@ -98,7 +98,9 @@ Route::resource('booking', HotelTicketController::class);
 Route::resource('airports', AirPortController::class);
 Route::get('confirm/ticket', [ConfirmTicketController::class, 'index'])->name('confirm.index');
 Route::get('confirm/ticket/{id}', [ConfirmTicketController::class, 'show'])->name('confirm.show');
-;
+Route::get('edit/ticket/{id}', [ConfirmTicketController::class, 'show_edit_ticket'])->name('show.edit_ticket');
+Route::get('index/edit/ticket', [ConfirmTicketController::class, 'index_edit_ticket'])->name('index.edit_ticket');
+
 // Route::get('hotels/create/{id}', [HotelController::class, 'create'])->name('hotels.create');
 // Route::resource('hotels', HotelController::class);
 // Route::get('event/{event}/hotel', [HotelController::class, 'create'])->name('hotels.create');

@@ -18,5 +18,8 @@ class Hotel_Ticket extends Model
     {
         return $this->belongsTo(Hotel::class ,'hotel_id');
     }
-
+    public function rooms()
+    {
+        return $this->belongsTo(Room::class ,'room_id');
+    }
 }
