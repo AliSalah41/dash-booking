@@ -43,9 +43,26 @@ class ConfirmTicketController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function accept(string $orignal_id  )
     {
-        //
+        $ticket = Ticket::with(['event', 'transportation', 'entertainment', 'hotel', 'airlinecountry', 'user'])
+        ->where('id', $orignal_id )
+        ->first();
+        $ticket->delete();
+
+        return redirect()->route('index.edit_ticket')
+            ->with('success', 'Accepted successfully!');
+
+    }
+    public function ignore(string $edit_ticket_id )
+    {
+        $ticket = Ticket::with(['event', 'transportation', 'entertainment', 'hotel', 'airlinecountry', 'user'])
+        ->where('id', $edit_ticket_id)
+        ->first();
+        $ticket->delete();
+
+        return redirect()->route('index.edit_ticket')
+            ->with('success', 'ignored successfully!');
     }
 
     /**
@@ -109,9 +126,7 @@ class ConfirmTicketController extends Controller
             ->get();
 
         // return  $tickets;
-        if ($tickets->isEmpty()) {
-            return view('admin.notFound.index')->with('error', 'No data found to display.');
-        }
+       
 
         return view('admin.Edit_tickets.index', compact('tickets'));
     }

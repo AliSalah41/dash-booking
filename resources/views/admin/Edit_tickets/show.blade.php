@@ -21,7 +21,7 @@
                             <strong style="font-size: 20px; color: #008cff;">User name:</strong>
                             <span class="card-title" style="font-size: 20px; ">{{ $originalTicket->user->name }}</span>
 
-                        </div> 
+                        </div>
                         <div >
                             <strong style="font-size: 20px; color: #008cff;">Event name:</strong>
                             <span class="card-title" style="font-size: 20px;"> {{ $originalTicket->event->name }}</span>
@@ -113,8 +113,8 @@
                             </div>
                             <div class="text-center mb-3"  >
                                 <div class="col">
-                                    <a href="javascript:;" class="btn btn-success mr-3">Accept</a>
-                                    <a href="javascript:;" class="btn btn-danger">Ignore</a>
+                                    <a href="{{ route('accept',$originalTicket->id )}}" class="btn btn-success mr-3">Accept</a>
+                                    <a href="{{ route('ignore',$editTicket->id )}}" class="btn btn-danger">Ignore</a>
                                 </div>
                         </div>
 
