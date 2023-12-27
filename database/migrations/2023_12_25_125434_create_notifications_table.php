@@ -17,7 +17,7 @@ return new class extends Migration
             $table->boolean('is_read');
             $table->unsignedBigInteger('user_id');
             $table->enum('status',['Accepte','ignore','no_action'])->default('no_action');
-            $table->enum('event',['room_mate']);
+            $$table->enum('event',['room_mate','edit_ticket']);
             $table->morphs('model');
             $table->json('data')->nullable();
             $table->timestamps();

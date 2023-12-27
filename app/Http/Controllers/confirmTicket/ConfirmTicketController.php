@@ -8,6 +8,7 @@ use App\Models\Hotel_Ticket;
 use Illuminate\Http\Request;
 use App\Models\Confirm_Ticket;
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use Illuminate\Support\Facades\DB;
 
 class ConfirmTicketController extends Controller
@@ -48,7 +49,18 @@ class ConfirmTicketController extends Controller
         $ticket = Ticket::with(['event', 'transportation', 'entertainment', 'hotel', 'airlinecountry', 'user'])
         ->where('id', $orignal_id )
         ->first();
+
+        Notification::create([
+            'user_id' =>   $ticket->user->id,
+            'message' => 'Accepted successfully',
+            'event' => 'room_mate',
+            'is_read' => 0
+            // Other attributes...
+        ]);
         $ticket->delete();
+
+
+
 
         return redirect()->route('index.edit_ticket')
             ->with('success', 'Accepted successfully!');
@@ -59,6 +71,14 @@ class ConfirmTicketController extends Controller
         $ticket = Ticket::with(['event', 'transportation', 'entertainment', 'hotel', 'airlinecountry', 'user'])
         ->where('id', $edit_ticket_id)
         ->first();
+
+        Notification::create([
+            'user_id' =>   $ticket->user->id,
+            'message' => 'ignored successfully',
+            'event' => 'room_mate',
+            'is_read' => 0
+            // Other attributes...
+        ]);
         $ticket->delete();
 
         return redirect()->route('index.edit_ticket')
@@ -106,6 +126,8 @@ class ConfirmTicketController extends Controller
             where('ticket_id', $editTicket->id)
             ->first();
 
+
+
             // return $editHotelTicket;
         return view('admin.Edit_tickets.show', compact('originalTicket', 'editTicket', 'originalHotelTicket', 'editHotelTicket'));
     }
@@ -125,8 +147,9 @@ class ConfirmTicketController extends Controller
             ->has('editTicket')
             ->get();
 
+
         // return  $tickets;
-       
+
 
         return view('admin.Edit_tickets.index', compact('tickets'));
     }
