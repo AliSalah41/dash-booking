@@ -27,6 +27,12 @@ class User extends Authenticatable
         return $this->hasMany(Ticket::class);
     }
 
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+
     /**
      * The attributes that should be hidden for serialization.
      *

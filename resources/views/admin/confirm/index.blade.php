@@ -45,8 +45,8 @@
                         <td>{{ $ticket->event->country->country }}</td>
                         <td>{{ $ticket->event->city->city }}</td>
                         <td>
-                            <a class="btn btn-success" href="{{ route('confirm.show',$ticket->id)}}"> {{__('words.show')}}</a>
-
+                            <a class="btn btn-success" style="background-color: #075d38" href="{{ route('confirm.show',$ticket->id)}}"> {{__('words.show')}}</a>
+                            <a class="btn btn-success" style="background-color: #075d38" href="{{ route('rc',$ticket->id)}}"> User's RC</a>
                         </td>
 
                     </tbody>

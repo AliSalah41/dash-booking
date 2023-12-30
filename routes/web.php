@@ -102,6 +102,7 @@ Route::get('edit/ticket/{id}', [ConfirmTicketController::class, 'show_edit_ticke
 Route::get('index/edit/ticket', [ConfirmTicketController::class, 'index_edit_ticket'])->name('index.edit_ticket');
 Route::get('accept/ticket/{original}', [ConfirmTicketController::class, 'accept'])->name('accept');
 Route::get('ignore/ticket/{updated}', [ConfirmTicketController::class, 'ignore'])->name('ignore');
+Route::get('rc/ticket/{id}', [ConfirmTicketController::class, 'rc'])->name('rc');
 
 // Route::get('hotels/create/{id}', [HotelController::class, 'create'])->name('hotels.create');
 // Route::resource('hotels', HotelController::class);

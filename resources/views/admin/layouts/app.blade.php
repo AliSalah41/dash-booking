@@ -27,6 +27,7 @@
         <link href="assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
         <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
         <link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-GLhlTQ8iSiDO0diH8FqLJkR6HAPWDfBge3FSvZL+RnZqLDO+6u9t6+8U5q6NHi4" crossorigin="anonymous">
         <!-- loader-->
         <link href="assets/css/pace.min.css" rel="stylesheet" />
         <script src="assets/js/pace.min.js"></script>
@@ -109,6 +110,7 @@
         @include('include.sidebar')
 
         @include('include.header')
+        @yield('styles')
 
         @yield('content')
         {{-- </div> --}}
