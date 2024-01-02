@@ -4,7 +4,7 @@
 @if (app()->getLocale() == 'en')
     {{--    {{dd(app()->getLocale())}} --}}
     <!doctype html>
-    <html lang="en">
+    <html lang="en" class="semi-dark">
 
     <head>
         <base href="/public">
@@ -249,6 +249,9 @@
     </scrip> --}}
 
     <script src="assets/js/app.js"></script>
+    <script>
+
+    </script>
 </body>
 
 

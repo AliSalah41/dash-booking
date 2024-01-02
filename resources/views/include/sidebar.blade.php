@@ -39,21 +39,15 @@
                 @endcan
             </ul>
         </li>
-        <li>
-            <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="bx bx-user"></i>
-                </div>
-                <div class="menu-title">{{ __('words.users') }}</div>
-            </a>
-            <ul>
                 @can('user-list' . session('appKey'))
-                    <li> <a href="{{ route('users.index') }}"><i
-                                class="bx bx-right-arrow-alt"></i>{{ __('words.clients') }}</a>
+                    <li>
+                        <a href="{{ route('users.index') }}">
+                            <div class="parent-icon"><i class="bx bx-user"></i>
+                            </div>
+                            <div class="menu-title">{{ __('words.clients') }}</div>
+                        </a>
                     </li>
                 @endcan
-            </ul>
-
-        </li>
         <li>
             <a href="{{ asset(route('statistics')) }}">
                 <div class="parent-icon">
@@ -133,25 +127,20 @@
             </ul>
 
         </li>
-<li>
-            <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class="fa-solid fa-plane" style="color: #6c757d;"></i>
+        @can('airline-list' . session('appKey'))
+        <li>
+            <a href="{{ route('airlineCountry.index') }}">
+                <div class="parent-icon">
+                    <i class="fa-solid fa-plane-up"></i>
                 </div>
+
                 <div class="menu-title">{{ __('words.airlines') }}</div>
             </a>
-            <ul>
-                 {{-- <li> <a class="menu-title" href="{{ route('airports.index') }}"><i
-                            class="bx bx-right-arrow-alt"></i>{{ __('words.airlines') }}</a>
-                </li>  --}}
 
-                @can('airline-list' . session('appKey'))
-                    <li> <a class="menu-title" href="{{ route('airlineCountry.index') }}"><i
-                                class="bx bx-right-arrow-alt"></i>{{ __('words.airlines_country') }}</a>
-                    </li>
-                @endcan
-            </ul>
 
         </li>
+        @endcan
+
 
         <li>
             <a href="javascript:;" class="has-arrow">
