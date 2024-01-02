@@ -44,15 +44,15 @@ class ConfirmTicketController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function accept(string $orignal_id  )
+    public function accept(string $orignal_id)
     {
         $ticket = Ticket::with(['event', 'transportation', 'entertainment', 'hotel', 'airlinecountry', 'user'])
-        ->where('id', $orignal_id )
-        ->first();
+            ->where('id', $orignal_id)
+            ->first();
 
         Notification::create([
             'user_id' =>   $ticket->user->id,
-            'message' => 'Accepted successfully',
+            'message' => 'Modifications to the ticket have been approved',
             'event' => 'room_mate',
             'is_read' => 0
 
@@ -64,17 +64,16 @@ class ConfirmTicketController extends Controller
 
         return redirect()->route('index.edit_ticket')
             ->with('success', 'Accepted successfully!');
-
     }
-    public function ignore(string $edit_ticket_id )
+    public function ignore(string $edit_ticket_id)
     {
         $ticket = Ticket::with(['event', 'transportation', 'entertainment', 'hotel', 'airlinecountry', 'user'])
-        ->where('id', $edit_ticket_id)
-        ->first();
+            ->where('id', $edit_ticket_id)
+            ->first();
 
         Notification::create([
             'user_id' =>   $ticket->user->id,
-            'message' => 'ignored successfully',
+            'message' => 'Modifications to the ticket have not been approved',
             'event' => 'room_mate',
             'is_read' => 0
 
@@ -117,18 +116,14 @@ class ConfirmTicketController extends Controller
             return view('admin.notFound.index')->with('error', 'No tickets found.');
         }
         // Get hotel_ticket for originalTicket
-        $originalHotelTicket = Hotel_Ticket::
-            where('ticket_id', $originalTicket->id)
+        $originalHotelTicket = Hotel_Ticket::where('ticket_id', $originalTicket->id)
             ->first();
 
         // Get hotel_ticket for editTicket
-        $editHotelTicket = Hotel_Ticket::
-            where('ticket_id', $editTicket->id)
+        $editHotelTicket = Hotel_Ticket::where('ticket_id', $editTicket->id)
             ->first();
-
-
-
-            // return $editHotelTicket;
+            
+        // return $editHotelTicket;
         return view('admin.Edit_tickets.show', compact('originalTicket', 'editTicket', 'originalHotelTicket', 'editHotelTicket'));
     }
     public function index_edit_ticket()
