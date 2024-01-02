@@ -177,15 +177,26 @@ class StatisticsController extends Controller
             ->selectRaw('DATE(created_at) as date, SUM(total_price) as total')
             ->groupBy('date')
             ->orderBy('date')
-            ->get();
+            ->pluck('total','date')
+            ->toArray();
 
-        $totalCount = $ticketStatistics->sum('total');
+//        $totalCount = $ticketStatistics->sum('total');
 //        return $statistics;
-        $labels = $ticketStatistics->pluck('date');
-        $values = $ticketStatistics->pluck('total');
+//        $labels = $ticketStatistics->pluck('date');
+//        $values = $ticketStatistics->pluck('total');
 
 // use CarbonPeriod here
-
+        $period = CarbonPeriod::create($startDate, '1 day', $endDate);
+        $new_array = [];
+        $totalCount = 0;
+        foreach ($period as $date) {
+            $formattedDate = $date->format('Y-m-d');
+            $count = $ticketStatistics[$formattedDate] ?? 0;
+//                $new_array[$formattedDate] = $count;
+            $labels[] = $formattedDate;
+            $values[] = $count;
+            $totalCount += $count;
+        }
 
         $incomeCard = ['labels'=>$labels,'values'=>$values,'total'=>$totalCount,'title'=>'new users','color'=>'#17a00e','type'=>'line'];
 //        dd($incomeCard);
