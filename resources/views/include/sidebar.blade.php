@@ -231,7 +231,7 @@
                 @endcan
                 @can('about-list' . session('appKey'))
                     <li><a href="{{ route('about.index') }}"><i
-                                class="bx bx-right-arrow-alt"></i>{{ __('words.about_site') }}</a></li>
+                                class="bx bx-right-arrow-alt"></i>{{ __('words.about_us') }}</a></li>
                 @endcan
             </ul>
         </li>

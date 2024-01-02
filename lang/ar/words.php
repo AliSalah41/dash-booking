@@ -280,7 +280,7 @@ return [
     'app_content'   => 'محتوى التطبيق',
     'company_phones'    => 'أرقام الشركة',
     'company_emails'    => 'إيميلات الشركة',
-    'about_site'        => 'عن الموقع',
+    'about_us'        => 'عن الموقع',
     'update_company_phone' => 'تعديل رقم الشركة',
     'add_company_phone' => 'إضافة رقم جديد',
     'update_company_email' => 'تعديل البريد الألكترونى',

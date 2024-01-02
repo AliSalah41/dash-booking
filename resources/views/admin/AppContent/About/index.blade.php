@@ -4,7 +4,7 @@
     {{ __('words.app_content') }}
 @stop
 @section('subtitle')
-    {{ __('words.about_site') }}
+    {{ __('words.about_us') }}
 @stop
 @can('about-create'.session('appKey'))
     @section('button_create')
@@ -16,7 +16,7 @@
     @stop
 @endcan
 @section('content')
-    <h6 class="mb-0 text-uppercase">{{ __('words.about_site') }}</h6>
+    <h6 class="mb-0 text-uppercase">{{ __('words.about_us') }}</h6>
     <hr />
     <div class="card">
         <div class="card-body">
@@ -29,7 +29,7 @@
                         <tr>
                             <th>#</th>
                             <th>Title</th>
-                            <th>{{ __('words.about_site') }}</th>
+                            <th>{{ __('words.about_us') }}</th>
                             {{-- <th>{{ __('words.type') }}</th> --}}
                             {{-- <th>{{ __('words.country') }}</th> --}}
                             <th>{{ __('words.language') }}</th>

@@ -277,7 +277,7 @@ return [
     'total_available'  => 'Total Available',
     'details' =>  'Details',
 
-    'about_site'        => 'About Site',
+    'about_us'        => 'About Us',
     'about_site_content'    => 'About Site Content',
     'company_policy'    => 'Company Policy',
     'update_company_phone' => 'Update Phone Number',

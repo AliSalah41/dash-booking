@@ -4,7 +4,7 @@
     {{ __('words.app_content') }}
 @stop
 @section('subtitle')
-    {{ __('words.about_site') }}
+    {{ __('words.about_us') }}
 @stop
 
 @section('content')
@@ -15,7 +15,7 @@
                     <div class="card-title d-flex align-items-center">
                         <div><i class="bx bx-menu me-1 font-22 text-primary"></i>
                         </div>
-                        <h5 class="mb-0 text-primary">{{ __('words.about_site') }}</h5>
+                        <h5 class="mb-0 text-primary">{{ __('words.about_us') }}</h5>
                     </div>
                     <hr>
                     <form class="row g-3" action='{{ route('about.store') }}' method="POST">
@@ -30,7 +30,7 @@
                         </div>
                         <div class="col-12">
                             <label for="inputAddress" class="form-label">{{ __('words.about_site_content') }}</label>
-                            <textarea class="form-control" value="{{ old('content') }}" name="content" id="inputAddress" placeholder="{{ __('words.about_site') }}..." rows="5"></textarea>
+                            <textarea class="form-control" value="{{ old('content') }}" name="content" id="inputAddress" placeholder="{{ __('words.about_us') }}..." rows="5"></textarea>
                             @error('content')
                                 <small class="form-text text-danger">{{ $message }}</small>
                             @enderror
