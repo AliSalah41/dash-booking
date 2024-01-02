@@ -80,15 +80,15 @@ class EventController extends Controller
 
         $request->validate([
 
-            'name' => 'required|string',
-            'description' => 'required|string|max:250',
+            'name' => 'required|string|max:250',
+            'description' => 'required|string|max:65000',
             'address' => 'required|string',
 
 
             'start.*' => 'required|string',
             'end.*' => 'required|string',
             'title.*' => 'required|string|max:250',
-            'desc_time.*' => 'required|string|max:250',
+            'desc_time.*' => 'required|string|max:65000',
             'img.*' => 'required',
             'image' => 'required',
             'ticket_type.*' => 'required|string',

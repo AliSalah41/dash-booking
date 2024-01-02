@@ -39,7 +39,7 @@ class Ticket extends Model
 
     public function hotelticket()
     {
-        return $this->belongsTo(Hotel_Ticket::class, 'hotel_ticket_id');
+        return $this->hasOne(Hotel_Ticket::class, 'ticket_id');
     }
     public function tickettype()
     {

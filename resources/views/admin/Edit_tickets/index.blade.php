@@ -25,12 +25,10 @@
                     <thead>
                     <tr>
                         <th>#</th>
-
-
+                        <th>user name</th>
                         <th>Event name</th>
-                      {{--  <th>Room type</th>  --}}
-                        <th>country</th>
-                        <th>city</th>
+{{--                        <th>country</th>--}}
+                        <th>request date</th>
                         <th>{{__('words.action')}}</th>
                     </tr>
                     </thead>
@@ -38,12 +36,13 @@
                     @foreach($tickets as $ticket)
                     <tbody>
 
-                        <td>{{$n++}}</td>
+                        <td>{{$ticket->id}}</td>
 
+                        <td>{{ $ticket->user->name }}</td>
                         <td>{{ $ticket->event->name }}</td>
-                        {{--  <td>{{ $ticket->hotels->room_type }}</td>  --}}
-                        <td>{{ $ticket->event->country->country }}</td>
-                        <td>{{ $ticket->event->city->city }}</td>
+                        <td>{{ $ticket->updated_at }}</td>
+                        {{--                        <td>{{ $ticket->event->country->country }}</td>--}}
+{{--                        <td>{{ $ticket->event->city->city }}</td>--}}
                         <td>
                             <a class="btn btn-success" href="{{ route('show.edit_ticket',$ticket->id)}}"> {{__('words.show')}}</a>
 

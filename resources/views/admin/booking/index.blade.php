@@ -35,7 +35,7 @@
                     <tbody>
                         @php($n=1)
                         @foreach($tickets as $ticket)
-                        <td>{{$n++}}</td>
+                        <td>{{$ticket->id}}</td>
                         <td>{{ $ticket->user->name }}</td>
                         <td>{{ $ticket->event->name }}</td>
                         <td>{{ $ticket->tickettype->ticket_type }}</td>

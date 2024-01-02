@@ -4,7 +4,7 @@
             <div class="me-auto">
                 <p class="mb-0 text-white text-capitalize">{{$title}}</p>
                 <h4 class="my-1 text-white">{{$number}}</h4>
-                <p class="mb-0 font-13 text-white">+2.5% from last week</p>
+                <p class="mb-0 font-13 text-white">.</p>
             </div>
 {{--            <div id="chart1"></div>--}}
             <div class="">

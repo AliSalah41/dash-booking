@@ -146,8 +146,8 @@ class CategoryController extends Controller
         // 'es.title' => 'required|string',
         // 'es.description' => 'required|string',
 
-        'title' => 'required|string',
-        'description' => 'required|string',
+        'title' => 'required|string|max:255',
+        'description' => 'required|string|max:65000',
     ]);
             // Update the English ('en') translation
     // $category->translateOrNew('en')->title = $request->input('en.title');
@@ -190,9 +190,9 @@ class CategoryController extends Controller
     //   'description'=> $request->description,
     // ]);
 
-$category->title =$request->title;
-$category->description =$request->description;
-$category->save();
+        $category->title =$request->title;
+        $category->description =$request->description;
+        $category->save();
         return redirect()->route('category.index')->with('success', __('words.updated'));
     }
 

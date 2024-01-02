@@ -42,7 +42,7 @@
                         <x-basic-widget  title="total income" number="{{\App\Models\Ticket::sum('total_price')}}"  bgColor="bg-gradient-ohhappiness" icon="fa-money-bill text-white fa-4x"></x-basic-widget>
                     </div>
                     <div class="col">
-                        <x-basic-widget  title="Average age of ticket holders" number="28.4"  bgColor="bg-gradient-kyoto" icon="fa-cake-candles text-white fa-4x" ></x-basic-widget>
+                        <x-basic-widget  title="Ticket holders' average age" number="28.4"  bgColor="bg-gradient-kyoto" icon="fa-cake-candles text-white fa-4x" ></x-basic-widget>
                     </div>
                 </div><!--end row-->
                 <h6 class="mb-2 text-uppercase">Dynamic DATA</h6>

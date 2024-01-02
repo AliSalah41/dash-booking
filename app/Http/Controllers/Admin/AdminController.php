@@ -33,7 +33,7 @@ class AdminController extends Controller
     public function index()
     {
         // dd(session('appKey'));
-        $admins = Admin::where('appKey', Auth::user()->appKey)->paginate(10);
+        $admins = Admin::paginate(10);
         // $admins = Admin::paginate(10);
         return view('admin.index', compact('admins'));
     }

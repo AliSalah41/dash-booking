@@ -39,9 +39,9 @@ class HotelController extends Controller
 
         //return $request->all();
         $request->validate([
-            'single_room' => 'required|numeric',
-            'double_room' => 'required|numeric',
-            'triple_room' => 'required|numeric',
+            'single_room' => 'required|numeric|max:9999999',
+            'double_room' => 'required|numeric|max:9999999',
+            'triple_room' => 'required|numeric|max:9999999',
         ]);
 
         // Check if a hotel already exists for the specified event

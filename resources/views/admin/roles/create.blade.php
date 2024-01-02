@@ -36,7 +36,7 @@
                     </ul>
                 </div>
             @endif
-            <div class="card border-top border-0 border-4 border-info">
+            <div class="card border-top border-0 border-4 border-primary">
                 <div class="card-body">
                     <form class="border p-4 rounded" enctype="multipart/form-data" method="POST"
                         action="{{ route('roles.store') }}">

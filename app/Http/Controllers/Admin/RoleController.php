@@ -62,10 +62,10 @@ class RoleController extends Controller
             'permission' => 'required',
             'appKey'    => session('appKey'),
         ]);
-
+        $permissions = Permission::whereIn('id', $request->input('permission'))->get(); // Replace [1, 2, 3] with your permission IDs
         $role = Role::create(['name' => $request->input('name'), 'appKey' => session('appKey')]);
         // $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
+        $role->syncPermissions($permissions);
 
         return redirect()->route('roles.index')
                         ->with('success', __('words.role_created'));

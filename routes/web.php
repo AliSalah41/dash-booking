@@ -47,6 +47,11 @@ Route::get('locale/{locale}', function ($locale) {
     return redirect()->back();
 });
 
+Route::get('/clear-cache', function () {
+    return \Artisan::call('optimize:clear');
+});
+
+
 Route::get('/login', function () {
     return view('admin.Auth.login');
 });

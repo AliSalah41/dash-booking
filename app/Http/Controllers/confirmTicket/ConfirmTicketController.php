@@ -94,16 +94,21 @@ class ConfirmTicketController extends Controller
     public function show_edit_ticket(string $id)
     {
         //  $hotel_tickets =Hotel_Ticket::with([ 'tickets', 'hotels'])->where('id',$id)->first();
-        $ticket = Ticket::with(['event', 'transportation', 'entertainment', 'hotel', 'airlinecountry', 'user'])
-            ->where('id', $id)
-            ->first();
+        $ticket = Ticket::with([
+            'editTicket',
+            'editTicket.event','editTicket.transportation','editTicket.entertainment','editTicket.hotelTicket','editTicket.airlinecountry'
+            ,'event', 'transportation', 'entertainment', 'hotelTicket', 'airlinecountry', 'user'])
+            ->where('id', $id)->orderByDesc('updated_at')
+            ->firstOrFail();
 
 
-        // Access the original ticket
-        $originalTicket = $ticket->originalTicket;
 
         // Access the related edit ticket
         $editTicket = $ticket->editTicket;
+
+        // Access the original ticket
+        $originalTicket = $ticket;
+//        return $editTicket;
 
         //    $updated_ticket = Ticket::with(['event', 'transportation', 'entertainment', 'hotel', 'airlinecountry'])
         //    ->has('originalTicket')
@@ -122,8 +127,7 @@ class ConfirmTicketController extends Controller
         // Get hotel_ticket for editTicket
         $editHotelTicket = Hotel_Ticket::where('ticket_id', $editTicket->id)
             ->first();
-            
-        // return $editHotelTicket;
+
         return view('admin.Edit_tickets.show', compact('originalTicket', 'editTicket', 'originalHotelTicket', 'editHotelTicket'));
     }
     public function index_edit_ticket()
