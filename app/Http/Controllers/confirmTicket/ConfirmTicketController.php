@@ -93,6 +93,8 @@ class ConfirmTicketController extends Controller
 
     public function show_edit_ticket(string $id)
     {
+        Notification::dash()->where('event','edit_ticket')->where('model_id',$id)->update(['is_read'=>1]);
+
         //  $hotel_tickets =Hotel_Ticket::with([ 'tickets', 'hotels'])->where('id',$id)->first();
         $ticket = Ticket::with([
             'editTicket',

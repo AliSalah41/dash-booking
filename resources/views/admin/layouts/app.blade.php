@@ -16,32 +16,49 @@
         <!--favicon-->
         <link rel="icon" href="{{ asset('assets/images/profile.jpg') }}" type="image/png" />
         <!--plugins-->
+        @vite(['resources/sass/app.sass'])
+
+        <link href="{{asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" />
 
         <link href="assets/plugins/notifications/css/lobibox.min.css" rel="stylesheet" />
         <link href="assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
-        <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
-        <link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
+        <link href="{{asset('assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" />
+        <link href="{{asset('assets/plugins/metismenu/css/metisMenu.min.css')}}" rel="stylesheet" />
         <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
-        <link href="assets/plugins/simplebar/css/simplebar.css" rel="stylesheet" />
+        <link href="{{asset('assets/plugins/simplebar/css/simplebar.css')}}" rel="stylesheet" />
         <link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet" />
         <link href="assets/plugins/select2/css/select2-bootstrap4.css" rel="stylesheet" />
-        <link href="assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" />
-        <link href="assets/plugins/metismenu/css/metisMenu.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-GLhlTQ8iSiDO0diH8FqLJkR6HAPWDfBge3FSvZL+RnZqLDO+6u9t6+8U5q6NHi4" crossorigin="anonymous">
+{{--        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-GLhlTQ8iSiDO0diH8FqLJkR6HAPWDfBge3FSvZL+RnZqLDO+6u9t6+8U5q6NHi4" crossorigin="anonymous">--}}
         <!-- loader-->
-        <link href="assets/css/pace.min.css" rel="stylesheet" />
-        <script src="assets/js/pace.min.js"></script>
+        <link href="{{asset('assets/css/pace.min.css')}}" rel="stylesheet" />
+        <script src="{{asset('assets/js/pace.min.js')}}"></script>
         <!-- Bootstrap CSS -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-        <link href="assets/css/app.css" rel="stylesheet">
-        <link href="assets/css/icons.css" rel="stylesheet">
+        <link href="{{asset('assets/css/app.css')}}" rel="stylesheet">
+        <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet">
         <!-- Theme Style CSS -->
-        <link rel="stylesheet" href="assets/css/dark-theme.css" />
-        <link rel="stylesheet" href="assets/css/semi-dark.css" />
-        <link rel="stylesheet" href="assets/css/header-colors.css" />
+        <!-- Theme Style CSS -->
+        <link rel="stylesheet" href="{{asset('assets/css/dark-theme.css')}}" />
+        <link rel="stylesheet" href="{{asset('assets/css/semi-dark.css')}}" />
+        <link rel="stylesheet" href="{{asset('assets/css/header-colors.css')}}" />
+
         <link rel="stylesheet" href="{{ asset('assets/css/all.min.css') }}" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.min.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+        <style>
+            .notification-description {
+                white-space: pre-line; /* Handles line breaks */
+                word-wrap: break-word; /* Alternative for word wrap */
+                overflow-wrap: break-word; /* Alternative for word wrap (newer standard) */
+            }
+            .header-notifications-list{
+                height: unset !important;
+                max-height: 360px !important;
+            }
+
+        </style>
     @else
         {{--            {{dd(app()->getLocale())}} --}}
 
@@ -251,6 +268,63 @@
     <script src="assets/js/app.js"></script>
     <script>
 
+    </script>
+    <script>
+        $(document).ready(function () {
+            console.log('notifi')
+            console.log('notifi')
+            console.log('notifi')
+
+            var notificationsList = $('.header-notifications-list')
+            // Function to load content via AJAX
+            function loadNotifications() {
+                $.ajax({
+                    url: '{{route('notifications')}}', // Replace 'your_server_endpoint' with your actual endpoint
+                    method: 'GET', // Use 'GET' or 'POST' depending on your server configuration
+                    success: function (data) {
+                        console.log(data)
+                        // Clear existing notifications
+                        notificationsList.empty();
+                        // data.length
+                        // console.log(data.length)
+                        count= 0
+                        // Loop through the received data and build HTML for notifications
+                        data.forEach(function (notification) {
+                            console.log(notification)
+                                if(notification.is_read==0){
+                                    count ++;
+                                }
+                            // var notificationHtml = '<a class="dropdown-item" href="#">' + notification.title + '</a>';
+                            var notificationHtml = '<a class="dropdown-item" href="'+notification.route+'">' +
+                                '<div class="d-flex align-items-center">' +
+                                '<div class="notify bg-light-primary text-primary"><i class="bx bx-group"></i></div>' +
+                                '<div class="flex-grow-1">' +
+                                '<h6 class="msg-name">' + notification.title + '<span class="msg-time float-end">' + notification.date + '</span></h6>' +
+                                '<p class="msg-info notification-description">' + notification.message + '</p>' +
+                                '</div></div></a>';
+                            notificationsList.append(notificationHtml);
+                        });
+                        if(count == 0){
+                            $('.alert-count').hide()
+                        }
+                        $('.alert-count').text(count);
+
+                    },
+                    error: function (error) {
+                        console.error('Error loading notifications:', error);
+                    }
+                });
+            }
+            // jQuery(document).ready(function($) {
+                $("#notifi").on("show.bs.dropdown", function(e) {
+                    loadNotifications();
+                });
+            // });
+            loadNotifications();
+
+
+
+        });
     </script>
 </body>
 

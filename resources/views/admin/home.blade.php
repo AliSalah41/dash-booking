@@ -5,6 +5,30 @@
     <div class="mt-2">
         @include('admin.layouts.messages')
     </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="page-content">
+                <h6 class="mb-0 text-uppercase">Basic Data</h6>
+                <hr />
+                <div class="row row-cols-1 row-cols-md-2 row-cols-xl-2 row-cols-xxl-4">
+                    <div class="col">
+                        <x-basic-widget  title="total booked tickets" number="{{\App\Models\Ticket::count()}}"  bgColor="bg-gradient-cosmic" icon="fa-ticket text-white fa-4x fa-rotate-90"></x-basic-widget>
+                    </div>
+                    <div class="col">
+                        <x-basic-widget  title="total registered users" number="{{\App\Models\User::count()}}"  bgColor="bg-gradient-ibiza" icon="fa-users text-white fa-4x"></x-basic-widget>
+                    </div>
+                    <div class="col">
+                        <x-basic-widget  title="total income" number="{{\App\Models\Ticket::sum('total_price')}}"  bgColor="bg-gradient-ohhappiness" icon="fa-money-bill text-white fa-4x"></x-basic-widget>
+                    </div>
+                    <div class="col">
+                        <x-basic-widget  title="Ticket holders' average age" number="28.4"  bgColor="bg-gradient-kyoto" icon="fa-cake-candles text-white fa-4x" ></x-basic-widget>
+                    </div>
+                </div><!--end row-->
+            </div>
+
+        </div>
+    </div>
 {{--    <div class="row row-cols-1 row-cols-md-3 row-cols-xl-2 row-cols-xxl-4">--}}
 {{--        <div class="col">--}}
 {{--            <div class="card radius-10 bg-gradient-cosmic">--}}

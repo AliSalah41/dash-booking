@@ -1,10 +1,10 @@
 @extends('admin.layouts.app')
 @section('home', '/')
 @section('title')
-    {{ __('words.users') }}
+    Home
 @stop
 @section('subtitle')
-    {{ __('words.clients') }}
+    Statistics
 @stop
 @can('user-create' . session('appKey'))
     @section('button_create')

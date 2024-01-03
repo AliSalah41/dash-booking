@@ -163,8 +163,8 @@
                     </li>
 
                     <li>
-                        <a class="menu-title text-capitalize" href="{{ route('index.edit_ticket') }}"><i
-                                class="bx bx-right-arrow-alt"></i>ticket edit requests</a>
+                        <a class="menu-title text-capitalize" href="{{ route('ticket-requests.index') }}"><i
+                                class="bx bx-right-arrow-alt"></i>Requests</a>
                     </li>
                 @endcan
             </ul>

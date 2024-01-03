@@ -19,7 +19,8 @@
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-permission": "^5.10",
         "spatie/laravel-translatable": "^6.5",
-        "yajra/laravel-datatables-oracle": "^10.0"
+        "yajra/laravel-datatables": "^10.1",
+        "yajra/laravel-datatables-oracle": "^10.11"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

@@ -141,3 +141,8 @@ Route::get('users/toggle/{id}', [ToggleController::class, 'activation'])->name('
 // Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
 Route::get('/statistics', \App\Http\Controllers\StatisticsController::class)->name('statistics');
+Route::get('/ticket-requests', [\App\Http\Controllers\TicketController::class,'requests_index'])->name('ticket-requests.index');
+Route::get('/ticket-requests/{id}', [ConfirmTicketController::class,'show_edit_ticket'])->name('ticket-requests.show');
+
+Route::get('/notifications', [\App\Http\Controllers\NotificationController::class, 'index'])->name('notifications');
+
